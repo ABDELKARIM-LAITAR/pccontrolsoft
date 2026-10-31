@@ -1,19 +1,30 @@
+Customizable line height
+The default line height has been increased for improved accessibility. You can choose to enable a more compact line height from the view settings menu.
 
+‎index.html‎
++626
+-40
+Lines changed: 626 additions & 40 deletions
+Original file line number	Diff line number	Diff line change
+@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<html lang="en" class="dark">
 <html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DirectSoft - Fast & Direct Software Directory</title>
+    
     <title>PcControlSoft - 100% Virus-Free PC & Mac Software Directory</title>
-
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
+@@ -13,59 +14,644 @@
             theme: {
                 extend: {
                     colors: {
+                        darkBg: '#0f172a',
+                        cardDark: '#1e293b'
                         brand: {
                             50: '#f0fdf4',
                             100: '#dcfce7',
@@ -33,21 +44,17 @@
             }
         }
     </script>
-
     <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         body {
             font-family: 'Inter', sans-serif;
             user-select: none;
         }
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -63,7 +70,6 @@
         .dark ::-webkit-scrollbar-thumb {
             background: rgba(255,255,255,0.2);
         }
-
         /* 3D Tile Elevate Transition */
         .software-tile {
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -72,7 +78,6 @@
         .software-tile:hover {
             transform: translateY(-4px) scale(1.01);
         }
-
         /* Knight Wave Effect */
         @keyframes knightRipple {
             0% {
@@ -90,7 +95,6 @@
         .knight-flash {
             animation: knightRipple 0.6s ease-out forwards;
         }
-
         /* Downloading State */
         .downloading-tile {
             background-color: #dcfce7 !important;
@@ -100,7 +104,6 @@
             background-color: #064e3b !important;
             border-color: #10b981 !important;
         }
-
         /* Tooltip Arrow */
         .tooltip-box::after {
             content: '';
@@ -115,7 +118,6 @@
             width: 0;
         }
     </style>
-
     <!-- Schema.org JSON-LD for Software Directory -->
     <script type="application/ld+json">
     {
@@ -132,8 +134,15 @@
     }
     </script>
 </head>
+<body class="bg-darkBg text-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-black text-blue-400">DirectSoft</h1>
+            <div class="w-full max-w-md">
+                <input type="text" placeholder="Search software..." 
+                       class="w-full px-4 py-3 rounded-xl border border-slate-700 bg-cardDark text-white focus:ring-2 focus:ring-blue-500 outline-none">
 <body class="bg-gray-100 text-gray-800 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
-
     <!-- HEADER BAR -->
     <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
@@ -144,7 +153,6 @@
                 <span class="hidden md:inline">100% Virus-Free & Verified</span>
                 <span class="md:hidden">100% Safe</span>
             </div>
-
             <!-- Center: Brand Name & Clock -->
             <div class="text-center flex flex-col items-center">
                 <div class="flex items-center space-x-2">
@@ -160,14 +168,12 @@
                     Loading Date...
                 </div>
             </div>
-
             <!-- Right: Logo & Theme Switch -->
             <div class="flex items-center space-x-3">
                 <!-- Theme Toggle Button (Chess Knight Icon) -->
                 <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition shadow-inner" title="Toggle Theme (Knight Piece)">
                     <i id="themeIcon" class="fa-solid fa-chess-knight text-xl transform hover:rotate-12 transition-transform"></i>
                 </button>
-
                 <!-- 3D Knight Logo -->
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20" title="PcControlSoft Knight Logo">
                     <i class="fa-solid fa-chess-knight text-2xl"></i>
@@ -176,6 +182,20 @@
         </div>
     </header>
 
+        <!-- Main Directory Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Windows Section -->
+            <div class="bg-cardDark p-6 rounded-2xl border border-slate-800">
+                <h2 class="text-xl font-bold mb-4 text-blue-400">Windows Directory</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold">VS</div>
+                        <div>
+                            <div class="font-semibold text-sm">Visual Studio Code</div>
+                            <a href="https://code.visualstudio.com/" target="_blank" class="text-xs text-blue-400 hover:underline">Direct Download</a>
+                        </div>
+                    </div>
     <!-- OS NAVIGATION BAR -->
     <nav class="bg-gray-200/70 dark:bg-slate-800/60 border-b border-gray-300 dark:border-slate-700 py-2.5 sticky top-20 z-30 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-4 sm:space-x-8 text-sm font-medium">
@@ -197,10 +217,8 @@
             </button>
         </div>
     </nav>
-
     <!-- MAIN CONTENT CONTAINER -->
     <main class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 flex-1 w-full">
-
         <!-- SEARCH HERO SECTION -->
         <section class="max-w-2xl mx-auto mb-10 text-center">
             <div class="relative">
@@ -211,7 +229,6 @@
             </div>
             <div id="searchCounter" class="text-xs text-gray-500 dark:text-gray-400 mt-2 h-4"></div>
         </section>
-
         <!-- WINDOWS SOFTWARE SECTION -->
         <section id="windowsSection" class="mb-14">
             <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3 mb-6">
@@ -222,12 +239,22 @@
                 <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 rounded-full">Windows 10 / 11</span>
             </div>
 
+            <!-- macOS Section -->
+            <div class="bg-cardDark p-6 rounded-2xl border border-slate-800">
+                <h2 class="text-xl font-bold mb-4 text-blue-400">macOS Directory</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold">XC</div>
+                        <div>
+                            <div class="font-semibold text-sm">Xcode</div>
+                            <a href="https://developer.apple.com/xcode/" target="_blank" class="text-xs text-blue-400 hover:underline">Direct Download</a>
+                        </div>
+                    </div>
             <!-- 8 Vertical Columns Container -->
             <div id="windowsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
                 <!-- Columns & Tiles Injected via JS -->
             </div>
         </section>
-
         <!-- MACOS SOFTWARE SECTION -->
         <section id="macSection" class="mb-14">
             <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3 mb-6">
@@ -237,15 +264,12 @@
                 </div>
                 <span class="text-xs font-semibold px-2.5 py-1 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 rounded-full">Apple Silicon & Intel</span>
             </div>
-
             <!-- 8 Vertical Columns Container -->
             <div id="macGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
                 <!-- Columns & Tiles Injected via JS -->
             </div>
         </section>
-
     </main>
-
     <!-- FOOTER -->
     <footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-8 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
@@ -288,7 +312,6 @@
             <button onclick="toggleModal('privacyModal')" class="w-full py-2 bg-emerald-600 text-white font-semibold rounded-xl text-sm hover:bg-emerald-700">Close</button>
         </div>
     </div>
-
     <!-- MODAL: DEVELOPER IMPRINT -->
     <div id="imprintModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white dark:bg-slate-800 max-w-md w-full rounded-2xl p-6 shadow-2xl space-y-4">
@@ -302,13 +325,11 @@
             <button onclick="toggleModal('imprintModal')" class="w-full py-2 bg-emerald-600 text-white font-semibold rounded-xl text-sm hover:bg-emerald-700">Close</button>
         </div>
     </div>
-
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white dark:bg-emerald-600 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2">
         <i class="fa-solid fa-circle-check text-emerald-400 dark:text-white text-base"></i>
         <span id="toastMsg">Action completed!</span>
     </div>
-
     <!-- JAVASCRIPT APPLICATION LOGIC -->
     <script>
         // --- CATEGORIES DEFINITION (Strictly 8 Columns) ---
@@ -322,7 +343,6 @@
             "System Optimization",
             "PDF & Document Readers"
         ];
-
         // --- SOFTWARE DATA (8 Categories x 8 Rows = 64 Tiles Per OS) ---
         const windowsSoftwareData = {
             "Web Browsers": [
@@ -406,23 +426,19 @@
                 { name: "Calibre eBooks", icon: "fa-solid fa-book", color: "text-amber-700", desc: "Comprehensive eBook manager and reader.", size: "110 MB", url: "https://calibre-ebook.com/" }
             ]
         };
-
         // --- MACOS DATA GENERATION (Replicating 8x8 Grid structure adjusted for Mac) ---
         const macSoftwareData = JSON.parse(JSON.stringify(windowsSoftwareData)); // Clone structure
         // Customize specific macOS names/icons
         macSoftwareData["System Optimization"][0] = { name: "CleanMyMac X", icon: "fa-solid fa-gem", color: "text-pink-500", desc: "All-in-one optimizer for macOS systems.", size: "85 MB", url: "https://macpaw.com/" };
         macSoftwareData["PDF & Document Readers"][1] = { name: "Preview Mac", icon: "fa-solid fa-eye", color: "text-blue-500", desc: "Native macOS image and PDF viewer.", size: "Built-in", url: "https://support.apple.com/" };
-
         // --- STATE & UTILITIES ---
         let currentTheme = localStorage.getItem('theme') || 'light';
-
         // Initialize Theme
         if (currentTheme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
-
         // Live Clock Function
         function updateClock() {
             const now = new Date();
@@ -432,7 +448,6 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
-
         // Audio Context for Procedural Click Sound
         let audioCtx = null;
         function playClickSound() {
@@ -459,16 +474,13 @@
                 // Audio fallback
             }
         }
-
         // Render Software Grid (8 Vertical Columns per OS)
         function renderOSGrid(data, containerId, osName) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
-
             CATEGORIES.forEach((catName, colIndex) => {
                 const columnDiv = document.createElement('div');
                 columnDiv.className = 'flex flex-col space-y-3';
-
                 // Column Header
                 const colHeader = document.createElement('div');
                 colHeader.className = 'bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-gray-200 dark:border-slate-700 text-center shadow-sm';
@@ -477,7 +489,6 @@
                     <span class="text-[9px] text-gray-400 font-medium">Column ${colIndex + 1} (8 Apps)</span>
                 `;
                 columnDiv.appendChild(colHeader);
-
                 // Software Items (Strictly 8 per category)
                 const items = data[catName] || [];
                 items.forEach((sw, rowIndex) => {
@@ -487,13 +498,11 @@
                     tile.dataset.row = rowIndex;
                     tile.dataset.name = sw.name.toLowerCase();
                     tile.className = 'software-tile relative bg-white dark:bg-slate-800/90 rounded-xl p-2.5 border border-gray-200/80 dark:border-slate-700 shadow-3d-light dark:shadow-3d-dark hover:shadow-3d-hover group cursor-pointer flex flex-col justify-between h-32';
-
                     tile.innerHTML = `
                         <!-- Hover Tooltip -->
                         <div class="tooltip-box opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 bg-yellow-400 text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded-md shadow-md whitespace-nowrap z-30">
                             ${sw.desc} (${sw.size})
                         </div>
-
                         <!-- Top row: Icon + Rating -->
                         <div class="flex items-start justify-between">
                             <div class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-base ${sw.color}">
@@ -503,46 +512,36 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                         </div>
-
                         <!-- Name -->
                         <div class="my-1">
                             <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">${sw.name}</h4>
                             <span class="text-[9px] text-gray-400 font-mono">${sw.size}</span>
                         </div>
-
                         <!-- 1-Click Download Button -->
                         <button onclick="handleDownload(event, '${sw.name}', '${sw.url}', this)" class="w-full py-1.5 px-2 bg-slate-100 hover:bg-emerald-600 text-slate-700 hover:text-white dark:bg-slate-700 dark:hover:bg-emerald-500 dark:text-slate-200 rounded-lg text-[10px] font-bold transition flex items-center justify-center space-x-1">
                             <i class="fa-solid fa-download"></i>
                             <span>Get App</span>
                         </button>
                     `;
-
                     columnDiv.appendChild(tile);
                 });
-
                 container.appendChild(columnDiv);
             });
         }
-
         // --- DOWNLOAD & CHESS RIPPLE EFFECT ---
         function handleDownload(e, name, url, btnElement) {
             e.stopPropagation();
             playClickSound();
-
             const tile = btnElement.closest('.software-tile');
             const col = parseInt(tile.dataset.col);
             const row = parseInt(tile.dataset.row);
             const os = tile.dataset.os;
-
             // Trigger Knight Ripple Pattern L-Moves
             triggerKnightRipple(os, col, row);
-
             // Active Download Style State
             tile.classList.add('downloading-tile');
             btnElement.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Downloading</span>`;
-
             showToast(`Starting verified download for ${name}...`);
-
             // Simulate direct download delay
             setTimeout(() => {
                 window.open(url, '_blank');
@@ -553,18 +552,15 @@
                 }, 3000);
             }, 800);
         }
-
         // Chess Knight L-Move Adjacent Ripple Effect
         function triggerKnightRipple(os, col, row) {
             const moves = [
                 [-2, -1], [-2, 1], [-1, -2], [-1, 2],
                 [1, -2],  [1, 2],  [2, -1],  [2, 1]
             ];
-
             moves.forEach(([dCol, dRow]) => {
                 const targetCol = col + dCol;
                 const targetRow = row + dRow;
-
                 if (targetCol >= 0 && targetCol < 8 && targetRow >= 0 && targetRow < 8) {
                     const selector = `.software-tile[data-os="${os}"][data-col="${targetCol}"][data-row="${targetRow}"]`;
                     const targetTile = document.querySelector(selector);
@@ -575,16 +571,13 @@
                 }
             });
         }
-
         // --- SEARCH FILTERING LOGIC ---
         const searchInput = document.getElementById('searchInput');
         const searchCounter = document.getElementById('searchCounter');
-
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
             const tiles = document.querySelectorAll('.software-tile');
             let matchCount = 0;
-
             tiles.forEach(tile => {
                 const name = tile.dataset.name;
                 if (name.includes(query)) {
@@ -594,14 +587,12 @@
                     tile.style.display = 'none';
                 }
             });
-
             if (query.length > 0) {
                 searchCounter.textContent = `Found ${matchCount} matching software application(s).`;
             } else {
                 searchCounter.textContent = '';
             }
         });
-
         // Keyboard Shortcut Ctrl+K
         window.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -609,7 +600,6 @@
                 searchInput.focus();
             }
         });
-
         // --- THEME TOGGLE (Knight Piece) ---
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
@@ -624,18 +614,15 @@
                 showToast("Switched to Ultra-Dark Theme");
             }
         });
-
         // --- UI HELPERS ---
         function scrollToOS(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
-
         function toggleModal(modalId) {
             playClickSound();
             const modal = document.getElementById(modalId);
             modal.classList.toggle('hidden');
         }
-
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toastMsg');
@@ -646,7 +633,6 @@
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
-
         // Initialize App Grids on Load
         window.onload = function() {
             renderOSGrid(windowsSoftwareData, 'windowsGrid', 'win');
@@ -654,4 +640,5 @@
         };
     </script>
 </body>
+</html>
 </html
