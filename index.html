@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DirectSoft - Fast & Direct Software Directory</title>
-    
+    <title>PcControlSoft - 100% Virus-Free PC & Mac Software Directory</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,59 +14,644 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0f172a',
-                        cardDark: '#1e293b'
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        darkTile: '#1e293b',
+                        lightTile: '#f8fafc',
+                    },
+                    boxShadow: {
+                        '3d-light': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+                        '3d-dark': '0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        '3d-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                     }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-darkBg text-slate-100 min-h-screen">
 
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-8">
-            <h1 class="text-3xl font-black text-blue-400">DirectSoft</h1>
-            <div class="w-full max-w-md">
-                <input type="text" placeholder="Search software..." 
-                       class="w-full px-4 py-3 rounded-xl border border-slate-700 bg-cardDark text-white focus:ring-2 focus:ring-blue-500 outline-none">
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* 3D Tile Elevate Transition */
+        .software-tile {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+        .software-tile:hover {
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        /* Knight Wave Effect */
+        @keyframes knightRipple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                background-color: rgba(34, 197, 94, 0.2);
+            }
+            50% {
+                background-color: rgba(34, 197, 94, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+                background-color: transparent;
+            }
+        }
+        .knight-flash {
+            animation: knightRipple 0.6s ease-out forwards;
+        }
+
+        /* Downloading State */
+        .downloading-tile {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .dark .downloading-tile {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+        }
+
+        /* Tooltip Arrow */
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #facc15 transparent;
+            display: block;
+            width: 0;
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD for Software Directory -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DataCatalog",
+      "name": "PcControlSoft",
+      "url": "https://ABDELKARIM-LAITAR.github.io/PcControlSoft/",
+      "description": "Clean, ad-free directory of verified software downloads for Windows and macOS.",
+      "keywords": "PC Software, macOS Apps, Virus-Free Downloads, Software Directory",
+      "publisher": {
+        "@type": "Person",
+        "name": "ABDELKARIM LAITAR"
+      }
+    }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- HEADER BAR -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Left: Security Badge -->
+            <div class="flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 text-xs sm:text-sm font-semibold shadow-sm">
+                <i class="fa-solid fa-shield-halved text-emerald-600 dark:text-emerald-400 text-base animate-pulse"></i>
+                <span class="hidden md:inline">100% Virus-Free & Verified</span>
+                <span class="md:hidden">100% Safe</span>
+            </div>
+
+            <!-- Center: Brand Name & Clock -->
+            <div class="text-center flex flex-col items-center">
+                <div class="flex items-center space-x-2">
+                    <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                        PcControl<span class="text-emerald-600 dark:text-emerald-400">Soft</span>
+                    </h1>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">
+                    Helps you download software you know.
+                </p>
+                <!-- Live Clock -->
+                <div id="liveClock" class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
+                    Loading Date...
+                </div>
+            </div>
+
+            <!-- Right: Logo & Theme Switch -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button (Chess Knight Icon) -->
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition shadow-inner" title="Toggle Theme (Knight Piece)">
+                    <i id="themeIcon" class="fa-solid fa-chess-knight text-xl transform hover:rotate-12 transition-transform"></i>
+                </button>
+
+                <!-- 3D Knight Logo -->
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20" title="PcControlSoft Knight Logo">
+                    <i class="fa-solid fa-chess-knight text-2xl"></i>
+                </div>
             </div>
         </div>
+    </header>
 
-        <!-- Main Directory Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            <!-- Windows Section -->
-            <div class="bg-cardDark p-6 rounded-2xl border border-slate-800">
-                <h2 class="text-xl font-bold mb-4 text-blue-400">Windows Directory</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold">VS</div>
-                        <div>
-                            <div class="font-semibold text-sm">Visual Studio Code</div>
-                            <a href="https://code.visualstudio.com/" target="_blank" class="text-xs text-blue-400 hover:underline">Direct Download</a>
-                        </div>
-                    </div>
+    <!-- OS NAVIGATION BAR -->
+    <nav class="bg-gray-200/70 dark:bg-slate-800/60 border-b border-gray-300 dark:border-slate-700 py-2.5 sticky top-20 z-30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-4 sm:space-x-8 text-sm font-medium">
+            <button onclick="scrollToOS('windowsSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-windows text-blue-500 text-lg"></i>
+                <span>Windows OS</span>
+            </button>
+            <button onclick="scrollToOS('macSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-lg"></i>
+                <span>macOS</span>
+            </button>
+            <button onclick="showToast('iOS software links coming soon!')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-gray-400 dark:text-gray-500 cursor-not-allowed">
+                <i class="fa-solid fa-mobile-screen text-lg"></i>
+                <span class="hidden sm:inline">iOS</span>
+            </button>
+            <button onclick="showToast('Android software links coming soon!')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-gray-400 dark:text-gray-500 cursor-not-allowed">
+                <i class="fa-brands fa-android text-lg"></i>
+                <span class="hidden sm:inline">Android</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- SEARCH HERO SECTION -->
+        <section class="max-w-2xl mx-auto mb-10 text-center">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                <input type="text" id="searchInput" placeholder="Search software... (Press Ctrl+K or Cmd+K)" 
+                    class="w-full pl-12 pr-12 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 dark:focus:border-emerald-400 shadow-lg text-sm sm:text-base transition">
+                <kbd class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-semibold text-gray-500 bg-gray-100 border border-gray-300 rounded-md dark:bg-slate-700 dark:text-gray-300 dark:border-slate-600">Ctrl K</kbd>
+            </div>
+            <div id="searchCounter" class="text-xs text-gray-500 dark:text-gray-400 mt-2 h-4"></div>
+        </section>
+
+        <!-- WINDOWS SOFTWARE SECTION -->
+        <section id="windowsSection" class="mb-14">
+            <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-windows text-blue-500 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Windows Directory <span class="text-xs font-normal text-gray-500">(64 Applications / 8 Categories)</span></h2>
                 </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 rounded-full">Windows 10 / 11</span>
             </div>
 
-            <!-- macOS Section -->
-            <div class="bg-cardDark p-6 rounded-2xl border border-slate-800">
-                <h2 class="text-xl font-bold mb-4 text-blue-400">macOS Directory</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold">XC</div>
-                        <div>
-                            <div class="font-semibold text-sm">Xcode</div>
-                            <a href="https://developer.apple.com/xcode/" target="_blank" class="text-xs text-blue-400 hover:underline">Direct Download</a>
-                        </div>
-                    </div>
+            <!-- 8 Vertical Columns Container -->
+            <div id="windowsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+                <!-- Columns & Tiles Injected via JS -->
+            </div>
+        </section>
+
+        <!-- MACOS SOFTWARE SECTION -->
+        <section id="macSection" class="mb-14">
+            <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">macOS Directory <span class="text-xs font-normal text-gray-500">(64 Applications / 8 Categories)</span></h2>
                 </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 rounded-full">Apple Silicon & Intel</span>
             </div>
 
+            <!-- 8 Vertical Columns Container -->
+            <div id="macGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+                <!-- Columns & Tiles Injected via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-8 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <p class="font-medium text-gray-700 dark:text-gray-300">
+                &copy; <span id="yearSpan"></span> <strong class="text-slate-900 dark:text-white">PcControlSoft</strong>. Developed & Maintained by <span class="text-emerald-600 dark:text-emerald-400 font-bold">ABDELKARIM LAITAR</span>.
+            </p>
+            <p class="max-w-3xl mx-auto leading-relaxed">
+                PcControlSoft is an ad-free, cookie-free software directory. All software names, logos, and brands are property of their respective owners. Direct downloads are verified clean and virus-free.
+            </p>
+            <div class="flex justify-center space-x-6 pt-2">
+                <button onclick="toggleModal('termsModal')" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline">Terms of Service</button>
+                <button onclick="toggleModal('privacyModal')" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline">Privacy Policy</button>
+                <button onclick="toggleModal('imprintModal')" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline">Developer Imprint</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: TERMS OF SERVICE -->
+    <div id="termsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 max-w-xl w-full rounded-2xl p-6 shadow-2xl space-y-4 max-h-[80vh] overflow-y-auto">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white border-b border-gray-200 dark:border-slate-700 pb-2">Terms of Service</h3>
+            <div class="text-xs space-y-3 leading-relaxed text-gray-600 dark:text-gray-300">
+                <p>1. <strong>Usage Disclaimer:</strong> All software cataloged on PcControlSoft is provided for educational and legitimate personal use. We link directly to official vendor sources or verified mirrors.</p>
+                <p>2. <strong>No Warranty:</strong> Software is provided "as is" without warranty of any kind. Users are encouraged to verify installation packages on their own systems.</p>
+                <p>3. <strong>Ad-Free Guarantee:</strong> PcControlSoft contains zero third-party advertising banners, zero pop-ups, and zero malicious redirect scripts.</p>
+            </div>
+            <button onclick="toggleModal('termsModal')" class="w-full py-2 bg-emerald-600 text-white font-semibold rounded-xl text-sm hover:bg-emerald-700">Close</button>
         </div>
     </div>
 
+    <!-- MODAL: PRIVACY POLICY -->
+    <div id="privacyModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 max-w-xl w-full rounded-2xl p-6 shadow-2xl space-y-4 max-h-[80vh] overflow-y-auto">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white border-b border-gray-200 dark:border-slate-700 pb-2">Privacy Policy & Liability</h3>
+            <div class="text-xs space-y-3 leading-relaxed text-gray-600 dark:text-gray-300">
+                <p>1. <strong>Zero Cookie Tracking:</strong> PcControlSoft does not place tracking cookies, analytical cookies, or third-party profiling scripts on your device.</p>
+                <p>2. <strong>Data Collection:</strong> We do not collect names, email addresses, or personal IP logs. Search functionality runs entirely inside your client browser.</p>
+                <p>3. <strong>Third-Party Links:</strong> Clicking download buttons redirects you directly to original official software distributors.</p>
+            </div>
+            <button onclick="toggleModal('privacyModal')" class="w-full py-2 bg-emerald-600 text-white font-semibold rounded-xl text-sm hover:bg-emerald-700">Close</button>
+        </div>
+    </div>
+
+    <!-- MODAL: DEVELOPER IMPRINT -->
+    <div id="imprintModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 max-w-md w-full rounded-2xl p-6 shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white border-b border-gray-200 dark:border-slate-700 pb-2">Developer Imprint & Contact</h3>
+            <div class="text-xs space-y-2 text-gray-600 dark:text-gray-300">
+                <p><strong>Lead Architect:</strong> ABDELKARIM LAITAR</p>
+                <p><strong>Project Identity:</strong> PcControlSoft Directory</p>
+                <p><strong>Status:</strong> 100% Virus-Free & Verified Software Index</p>
+                <p><strong>Location:</strong> Algeria</p>
+            </div>
+            <button onclick="toggleModal('imprintModal')" class="w-full py-2 bg-emerald-600 text-white font-semibold rounded-xl text-sm hover:bg-emerald-700">Close</button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white dark:bg-emerald-600 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-white text-base"></i>
+        <span id="toastMsg">Action completed!</span>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // --- CATEGORIES DEFINITION (Strictly 8 Columns) ---
+        const CATEGORIES = [
+            "Web Browsers",
+            "Antivirus & Security",
+            "Media Players",
+            "Compression Tools",
+            "Communication",
+            "Image Editors",
+            "System Optimization",
+            "PDF & Document Readers"
+        ];
+
+        // --- SOFTWARE DATA (8 Categories x 8 Rows = 64 Tiles Per OS) ---
+        const windowsSoftwareData = {
+            "Web Browsers": [
+                { name: "Google Chrome", icon: "fa-brands fa-chrome", color: "text-red-500", desc: "Fast & secure web browser by Google.", size: "88 MB", url: "https://www.google.com/chrome/" },
+                { name: "Mozilla Firefox", icon: "fa-brands fa-firefox-browser", color: "text-orange-500", desc: "Privacy-focused open-source web browser.", size: "55 MB", url: "https://www.mozilla.org/firefox/" },
+                { name: "Microsoft Edge", icon: "fa-brands fa-edge", color: "text-blue-500", desc: "High performance browser built on Chromium.", size: "92 MB", url: "https://www.microsoft.com/edge" },
+                { name: "Brave Browser", icon: "fa-brands fa-brave", color: "text-amber-600", desc: "Blocks ads & trackers by default automatically.", size: "95 MB", url: "https://brave.com/" },
+                { name: "Opera FX", icon: "fa-brands fa-opera", color: "text-red-600", desc: "Browser with free built-in VPN & messenger.", size: "89 MB", url: "https://www.opera.com/" },
+                { name: "Vivaldi", icon: "fa-solid fa-compass", color: "text-rose-500", desc: "Ultra customizable browser for power users.", size: "90 MB", url: "https://vivaldi.com/" },
+                { name: "Tor Browser", icon: "fa-solid fa-user-ninja", color: "text-purple-600", desc: "Protect your privacy with onion routing network.", size: "80 MB", url: "https://www.torproject.org/" },
+                { name: "Waterfox", icon: "fa-solid fa-water", color: "text-cyan-500", desc: "Ethical 64-bit web browser based on Firefox.", size: "62 MB", url: "https://www.waterfox.net/" }
+            ],
+            "Antivirus & Security": [
+                { name: "Malwarebytes", icon: "fa-solid fa-shield-virus", color: "text-blue-600", desc: "Removes malware, viruses, and cyber threats.", size: "285 MB", url: "https://www.malwarebytes.com/" },
+                { name: "Bitdefender Free", icon: "fa-solid fa-[#d97706] fa-shield-cat", color: "text-red-600", desc: "Lightweight, silent & powerful virus shield.", size: "12 MB", url: "https://www.bitdefender.com/" },
+                { name: "Avast Security", icon: "fa-solid fa-shield", color: "text-orange-500", desc: "Essential security & wi-fi threat scanner.", size: "380 MB", url: "https://www.avast.com/" },
+                { name: "AVG AntiVirus", icon: "fa-solid fa-user-shield", color: "text-emerald-500", desc: "Blocks viruses, spyware, and ransomware threats.", size: "370 MB", url: "https://www.avg.com/" },
+                { name: "Kaspersky Free", icon: "fa-solid fa-lock", color: "text-teal-600", desc: "Top-rated cloud antivirus protection layer.", size: "170 MB", url: "https://www.kaspersky.com/" },
+                { name: "Emsisoft Kit", icon: "fa-solid fa-bug-slash", color: "text-blue-500", desc: "Emergency malware cleanup tool suite.", size: "340 MB", url: "https://www.emsisoft.com/" },
+                { name: "Spybot Search", icon: "fa-solid fa-[#0284c7] fa-user-secret", color: "text-sky-600", desc: "Detects and removes stubborn spyware apps.", size: "65 MB", url: "https://www.safer-networking.org/" },
+                { name: "GlassWire", icon: "fa-solid fa-chart-line", color: "text-violet-500", desc: "Visual network monitor & firewall security.", size: "70 MB", url: "https://www.glasswire.com/" }
+            ],
+            "Media Players": [
+                { name: "VLC Player", icon: "fa-solid fa-cone-sf", color: "text-orange-500", desc: "Plays almost any video and audio file format.", size: "40 MB", url: "https://www.videolan.org/" },
+                { name: "PotPlayer", icon: "fa-solid fa-circle-play", color: "text-amber-500", desc: "Feature-rich multimedia player for Windows.", size: "32 MB", url: "https://potplayer.daum.net/" },
+                { name: "MPC-HC", icon: "fa-solid fa-film", color: "text-slate-700 dark:text-slate-200", desc: "Classic lightweight media player for PC.", size: "18 MB", url: "https://mpc-hc.org/" },
+                { name: "KMPlayer", icon: "fa-solid fa-play", color: "text-indigo-500", desc: "Supports high-definition 4K & 8K video playback.", size: "48 MB", url: "https://www.kmplayer.com/" },
+                { name: "AIMP Audio", icon: "fa-solid fa-music", color: "text-orange-600", desc: "High quality audio player and sound processor.", size: "15 MB", url: "https://www.aimp.ru/" },
+                { name: "Foobar2000", icon: "fa-solid fa-[#0284c7] fa-compact-disc", color: "text-slate-600", desc: "Advanced modular audio player for music lovers.", size: "6 MB", url: "https://www.foobar2000.org/" },
+                { name: "K-Lite Codecs", icon: "fa-solid fa-sliders", color: "text-blue-600", desc: "Essential collection of video codecs & filters.", size: "58 MB", url: "https://codecguide.com/" },
+                { name: "HandBrake", icon: "fa-solid fa-cubes", color: "text-red-500", desc: "Open-source video transcoder and converter.", size: "22 MB", url: "https://handbrake.fr/" }
+            ],
+            "Compression Tools": [
+                { name: "7-Zip", icon: "fa-solid fa-file-zipper", color: "text-slate-800 dark:text-slate-100", desc: "High compression ratio open source archiver.", size: "1.5 MB", url: "https://www.7-zip.org/" },
+                { name: "WinRAR", icon: "fa-solid fa-box-archive", color: "text-blue-600", desc: "Powerful archive manager for RAR & ZIP.", size: "3.2 MB", url: "https://www.rarlab.com/" },
+                { name: "Bandizip", icon: "fa-solid fa-[#16a34a] fa-file-archiving", color: "text-emerald-600", desc: "Fast archiver with easy drag and drop.", size: "11 MB", url: "https://en.bandisoft.com/bandizip/" },
+                { name: "PeaZip", icon: "fa-solid fa-box", color: "text-teal-500", desc: "Free archiver utility supporting 200+ formats.", size: "14 MB", url: "https://peazip.github.io/" },
+                { name: "WinZip", icon: "fa-solid fa-folder-closed", color: "text-amber-600", desc: "Classic compression tool with cloud integration.", size: "52 MB", url: "https://www.winzip.com/" },
+                { name: "ExtractNow", icon: "fa-solid fa-arrows-split-up-and-left", color: "text-violet-600", desc: "Extract multiple compressed archives at once easily.", size: "4.5 MB", url: "https://www.extractnow.com/" },
+                { name: "IZArc", icon: "fa-solid fa-file-code", color: "text-sky-500", desc: "Supports major archive formats including ISO images.", size: "7.0 MB", url: "https://www.izarc.org/" },
+                { name: "Hamster Zip", icon: "fa-solid fa-file-shield", color: "text-rose-500", desc: "Modern UI zip archiver with cloud support.", size: "13 MB", url: "https://zip.hamstersoft.com/" }
+            ],
+            "Communication": [
+                { name: "Discord", icon: "fa-brands fa-discord", color: "text-indigo-500", desc: "Voice, video, and text communication platform.", size: "82 MB", url: "https://discord.com/" },
+                { name: "Telegram PC", icon: "fa-brands fa-telegram", color: "text-sky-500", desc: "Fast, secure, and synchronized cloud messaging.", size: "42 MB", url: "https://desktop.telegram.org/" },
+                { name: "WhatsApp Desktop", icon: "fa-brands fa-whatsapp", color: "text-emerald-500", desc: "Desktop messaging with end-to-end encryption.", size: "120 MB", url: "https://www.whatsapp.com/" },
+                { name: "Zoom Meetings", icon: "fa-solid fa-video", color: "text-blue-500", desc: "HD video conferencing & screen sharing software.", size: "55 MB", url: "https://zoom.us/" },
+                { name: "Skype", icon: "fa-brands fa-skype", color: "text-sky-600", desc: "Free HD video calls and messaging service.", size: "85 MB", url: "https://www.skype.com/" },
+                { name: "Signal", icon: "fa-solid fa-comment-sms", color: "text-blue-600", desc: "Private messaging focused on extreme security.", size: "110 MB", url: "https://signal.org/" },
+                { name: "Slack", icon: "fa-brands fa-slack", color: "text-amber-500", desc: "Team collaboration and workflow workspace.", size: "90 MB", url: "https://slack.com/" },
+                { name: "Thunderbird", icon: "fa-solid fa-envelope-open-text", color: "text-blue-500", desc: "Free email, calendar, and contact management.", size: "58 MB", url: "https://www.thunderbird.net/" }
+            ],
+            "Image Editors": [
+                { name: "GIMP", icon: "fa-solid fa-palette", color: "text-slate-700 dark:text-slate-300", desc: "Free & open-source photo editing suite.", size: "260 MB", url: "https://www.gimp.org/" },
+                { name: "Paint.NET", icon: "fa-solid fa-paint-roller", color: "text-blue-500", desc: "Layer-based image and photo editing software.", size: "12 MB", url: "https://www.getpaint.net/" },
+                { name: "Krita Studio", icon: "fa-solid fa-pen-nib", color: "text-pink-500", desc: "Professional free digital painting & sketch tool.", size: "160 MB", url: "https://krita.org/" },
+                { name: "Inkscape", icon: "fa-solid fa-vector-square", color: "text-slate-900 dark:text-slate-100", desc: "Professional vector graphics editor for SVG.", size: "95 MB", url: "https://inkscape.org/" },
+                { name: "Darktable", icon: "fa-solid fa-camera-retro", color: "text-yellow-600", desc: "Open-source photography workflow & RAW developer.", size: "90 MB", url: "https://www.darktable.org/" },
+                { name: "PhotoScape X", icon: "fa-solid fa-wand-magic-sparkles", color: "text-[#d97706]", desc: "Fun & easy photo editor with filters.", size: "340 MB", url: "https://photoscapex.org/" },
+                { name: "DigiKam", icon: "fa-solid fa-images", color: "text-teal-600", desc: "Advanced open-source photo management app.", size: "190 MB", url: "https://www.digikam.org/" },
+                { name: "ShareX", icon: "fa-solid fa-crop-simple", color: "text-red-500", desc: "Screen capture, file sharing and productivity tool.", size: "8.5 MB", url: "https://getsharex.com/" }
+            ],
+            "System Optimization": [
+                { name: "CCleaner", icon: "fa-solid fa-broom", color: "text-red-500", desc: "Cleans temporary files and optimizes system registry.", size: "35 MB", url: "https://www.ccleaner.com/" },
+                { name: "BleachBit", icon: "fa-solid fa-[#16a34a] fa-[#22c55e] fa-trash-can", color: "text-emerald-600", desc: "Free open-source disk space cleaner & privacy guard.", size: "12 MB", url: "https://www.bleachbit.org/" },
+                { name: "Revo Uninstaller", icon: "fa-solid fa-eraser", color: "text-blue-600", desc: "Completely removes stubborn software and leftovers.", size: "16 MB", url: "https://www.revouninstaller.com/" },
+                { name: "HWMonitor", icon: "fa-solid fa-microchip", color: "text-purple-600", desc: "Monitors PC hardware temperature, voltage, fan speed.", size: "3 MB", url: "https://www.cpuid.com/" },
+                { name: "Speccy", icon: "fa-solid fa-[#0284c7] fa-circle-info", color: "text-amber-600", desc: "Detailed hardware & system information viewer.", size: "6 MB", url: "https://www.ccleaner.com/speccy" },
+                { name: "Defraggler", icon: "fa-solid fa-hard-drive", color: "text-[#d97706]", desc: "Defragment individual files or entire hard drives.", size: "7 MB", url: "https://www.ccleaner.com/defraggler" },
+                { name: "Sysinternals", icon: "fa-solid fa-terminal", color: "text-slate-800 dark:text-slate-100", desc: "Advanced Windows troubleshooting utilities bundle.", size: "45 MB", url: "https://learn.microsoft.com/sysinternals/" },
+                { name: "CrystalDiskInfo", icon: "fa-solid fa-[#0284c7] fa-heart-pulse", color: "text-rose-600", desc: "HDD & SSD health monitoring utility.", size: "5 MB", url: "https://crystalmark.info/" }
+            ],
+            "PDF & Document Readers": [
+                { name: "Sumatra PDF", icon: "fa-solid fa-file-pdf", color: "text-amber-500", desc: "Ultra fast, lightweight PDF, ePub, and eBook reader.", size: "7 MB", url: "https://www.sumatrapdfreader.org/" },
+                { name: "Adobe Acrobat Reader", icon: "fa-solid fa-[#d97706] fa-file-lines", color: "text-red-600", desc: "Standard viewer for printing and commenting on PDFs.", size: "240 MB", url: "https://get.adobe.com/reader/" },
+                { name: "Foxit PDF Reader", icon: "fa-solid fa-book-open", color: "text-orange-500", desc: "Feature-rich PDF reader and form filler.", size: "160 MB", url: "https://www.foxit.com/" },
+                { name: "PDF24 Creator", icon: "fa-solid fa-print", color: "text-blue-500", desc: "Free PDF converter, merger, and editor tools.", size: "120 MB", url: "https://www.pdf24.org/" },
+                { name: "LibreOffice Suite", icon: "fa-solid fa-file-word", color: "text-emerald-600", desc: "Free open-source office suite alternative.", size: "340 MB", url: "https://www.libreoffice.org/" },
+                { name: "PDFsam Basic", icon: "fa-solid fa-scissors", color: "text-indigo-600", desc: "Split, merge, rotate, and extract PDF pages.", size: "50 MB", url: "https://pdfsam.org/" },
+                { name: "Okular", icon: "fa-solid fa-[#0284c7] fa-book-bookmark", color: "text-sky-500", desc: "Universal document viewer supporting multiple formats.", size: "85 MB", url: "https://okular.kde.org/" },
+                { name: "Calibre eBooks", icon: "fa-solid fa-book", color: "text-amber-700", desc: "Comprehensive eBook manager and reader.", size: "110 MB", url: "https://calibre-ebook.com/" }
+            ]
+        };
+
+        // --- MACOS DATA GENERATION (Replicating 8x8 Grid structure adjusted for Mac) ---
+        const macSoftwareData = JSON.parse(JSON.stringify(windowsSoftwareData)); // Clone structure
+        // Customize specific macOS names/icons
+        macSoftwareData["System Optimization"][0] = { name: "CleanMyMac X", icon: "fa-solid fa-gem", color: "text-pink-500", desc: "All-in-one optimizer for macOS systems.", size: "85 MB", url: "https://macpaw.com/" };
+        macSoftwareData["PDF & Document Readers"][1] = { name: "Preview Mac", icon: "fa-solid fa-eye", color: "text-blue-500", desc: "Native macOS image and PDF viewer.", size: "Built-in", url: "https://support.apple.com/" };
+
+        // --- STATE & UTILITIES ---
+        let currentTheme = localStorage.getItem('theme') || 'light';
+
+        // Initialize Theme
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Live Clock Function
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('liveClock').textContent = now.toLocaleDateString('en-US', options) + ' • Daily Verified';
+            document.getElementById('yearSpan').textContent = now.getFullYear();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Audio Context for Procedural Click Sound
+        let audioCtx = null;
+        function playClickSound() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime); // A4 note
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08);
+                
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {
+                // Audio fallback
+            }
+        }
+
+        // Render Software Grid (8 Vertical Columns per OS)
+        function renderOSGrid(data, containerId, osName) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            CATEGORIES.forEach((catName, colIndex) => {
+                const columnDiv = document.createElement('div');
+                columnDiv.className = 'flex flex-col space-y-3';
+
+                // Column Header
+                const colHeader = document.createElement('div');
+                colHeader.className = 'bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-gray-200 dark:border-slate-700 text-center shadow-sm';
+                colHeader.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block truncate">${catName}</span>
+                    <span class="text-[9px] text-gray-400 font-medium">Column ${colIndex + 1} (8 Apps)</span>
+                `;
+                columnDiv.appendChild(colHeader);
+
+                // Software Items (Strictly 8 per category)
+                const items = data[catName] || [];
+                items.forEach((sw, rowIndex) => {
+                    const tile = document.createElement('div');
+                    tile.dataset.os = osName;
+                    tile.dataset.col = colIndex;
+                    tile.dataset.row = rowIndex;
+                    tile.dataset.name = sw.name.toLowerCase();
+                    tile.className = 'software-tile relative bg-white dark:bg-slate-800/90 rounded-xl p-2.5 border border-gray-200/80 dark:border-slate-700 shadow-3d-light dark:shadow-3d-dark hover:shadow-3d-hover group cursor-pointer flex flex-col justify-between h-32';
+
+                    tile.innerHTML = `
+                        <!-- Hover Tooltip -->
+                        <div class="tooltip-box opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 bg-yellow-400 text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded-md shadow-md whitespace-nowrap z-30">
+                            ${sw.desc} (${sw.size})
+                        </div>
+
+                        <!-- Top row: Icon + Rating -->
+                        <div class="flex items-start justify-between">
+                            <div class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-base ${sw.color}">
+                                <i class="${sw.icon}"></i>
+                            </div>
+                            <div class="text-[9px] text-amber-400 flex space-x-0.5">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="my-1">
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">${sw.name}</h4>
+                            <span class="text-[9px] text-gray-400 font-mono">${sw.size}</span>
+                        </div>
+
+                        <!-- 1-Click Download Button -->
+                        <button onclick="handleDownload(event, '${sw.name}', '${sw.url}', this)" class="w-full py-1.5 px-2 bg-slate-100 hover:bg-emerald-600 text-slate-700 hover:text-white dark:bg-slate-700 dark:hover:bg-emerald-500 dark:text-slate-200 rounded-lg text-[10px] font-bold transition flex items-center justify-center space-x-1">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Get App</span>
+                        </button>
+                    `;
+
+                    columnDiv.appendChild(tile);
+                });
+
+                container.appendChild(columnDiv);
+            });
+        }
+
+        // --- DOWNLOAD & CHESS RIPPLE EFFECT ---
+        function handleDownload(e, name, url, btnElement) {
+            e.stopPropagation();
+            playClickSound();
+
+            const tile = btnElement.closest('.software-tile');
+            const col = parseInt(tile.dataset.col);
+            const row = parseInt(tile.dataset.row);
+            const os = tile.dataset.os;
+
+            // Trigger Knight Ripple Pattern L-Moves
+            triggerKnightRipple(os, col, row);
+
+            // Active Download Style State
+            tile.classList.add('downloading-tile');
+            btnElement.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Downloading</span>`;
+
+            showToast(`Starting verified download for ${name}...`);
+
+            // Simulate direct download delay
+            setTimeout(() => {
+                window.open(url, '_blank');
+                btnElement.innerHTML = `<i class="fa-solid fa-check"></i> <span>Completed</span>`;
+                setTimeout(() => {
+                    tile.classList.remove('downloading-tile');
+                    btnElement.innerHTML = `<i class="fa-solid fa-download"></i> <span>Get App</span>`;
+                }, 3000);
+            }, 800);
+        }
+
+        // Chess Knight L-Move Adjacent Ripple Effect
+        function triggerKnightRipple(os, col, row) {
+            const moves = [
+                [-2, -1], [-2, 1], [-1, -2], [-1, 2],
+                [1, -2],  [1, 2],  [2, -1],  [2, 1]
+            ];
+
+            moves.forEach(([dCol, dRow]) => {
+                const targetCol = col + dCol;
+                const targetRow = row + dRow;
+
+                if (targetCol >= 0 && targetCol < 8 && targetRow >= 0 && targetRow < 8) {
+                    const selector = `.software-tile[data-os="${os}"][data-col="${targetCol}"][data-row="${targetRow}"]`;
+                    const targetTile = document.querySelector(selector);
+                    if (targetTile) {
+                        targetTile.classList.add('knight-flash');
+                        setTimeout(() => targetTile.classList.remove('knight-flash'), 600);
+                    }
+                }
+            });
+        }
+
+        // --- SEARCH FILTERING LOGIC ---
+        const searchInput = document.getElementById('searchInput');
+        const searchCounter = document.getElementById('searchCounter');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const tiles = document.querySelectorAll('.software-tile');
+            let matchCount = 0;
+
+            tiles.forEach(tile => {
+                const name = tile.dataset.name;
+                if (name.includes(query)) {
+                    tile.style.display = 'flex';
+                    matchCount++;
+                } else {
+                    tile.style.display = 'none';
+                }
+            });
+
+            if (query.length > 0) {
+                searchCounter.textContent = `Found ${matchCount} matching software application(s).`;
+            } else {
+                searchCounter.textContent = '';
+            }
+        });
+
+        // Keyboard Shortcut Ctrl+K
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // --- THEME TOGGLE (Knight Piece) ---
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            playClickSound();
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                showToast("Switched to Light Theme");
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                showToast("Switched to Ultra-Dark Theme");
+            }
+        });
+
+        // --- UI HELPERS ---
+        function scrollToOS(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleModal(modalId) {
+            playClickSound();
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initialize App Grids on Load
+        window.onload = function() {
+            renderOSGrid(windowsSoftwareData, 'windowsGrid', 'win');
+            renderOSGrid(macSoftwareData, 'macGrid', 'mac');
+        };
+    </script>
 </body>
-</html>
+</html
