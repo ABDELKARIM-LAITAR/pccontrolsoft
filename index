@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PcControlSoft - 100% Virus-Free PC & Mac Software Directory</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        darkTile: '#1e293b',
+                        lightTile: '#ffffff',
+                    },
+                    boxShadow: {
+                        '3d-light': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+                        '3d-dark': '0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        '3d-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* 3D Tile Elevate Transition */
+        .software-tile {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+        .software-tile:hover {
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        /* Custom Blinking Red Square Cursor */
+        .custom-cursor-input {
+            caret-color: transparent;
+        }
+        .blinking-red-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background-color: #ef4444;
+            animation: fastBlink 0.25s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        @keyframes fastBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Flying Motion Element (Tank / Rocket) */
+        @keyframes flyAcross {
+            0% { transform: translateX(-100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)); opacity: 0; }
+        }
+        .flying-motion {
+            position: fixed;
+            top: 15px;
+            z-index: 100;
+            animation: flyAcross 4s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Knight Wave Effect */
+        @keyframes knightRipple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                background-color: rgba(34, 197, 94, 0.2);
+            }
+            50% {
+                background-color: rgba(34, 197, 94, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+                background-color: transparent;
+            }
+        }
+        .knight-flash {
+            animation: knightRipple 0.6s ease-out forwards;
+        }
+
+        /* Downloading State */
+        .downloading-tile {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .dark .downloading-tile {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DataCatalog",
+      "name": "PcControlSoft",
+      "url": "https://ABDELKARIM-LAITAR.github.io/PcControlSoft/",
+      "description": "Clean, ad-free directory of verified software downloads for Windows and macOS.",
+      "keywords": "PC Software, macOS Apps, Virus-Free Downloads, Software Directory",
+      "publisher": {
+        "@type": "Person",
+        "name": "ABDELKARIM LAITAR"
+      }
+    }
+    </script>
+</head>
+<body class="bg-white text-gray-800 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Flying Motion Element (Tank / Jet) -->
+    <div class="flying-motion text-emerald-600 dark:text-emerald-400 text-xl">
+        <i class="fa-solid fa-jet-fighter"></i>
+    </div>
+
+    <!-- HEADER BAR -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Left: Security Badge & Ninite Batch Mode Lock -->
+            <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 text-xs sm:text-sm font-semibold shadow-sm">
+                    <i class="fa-solid fa-shield-halved text-emerald-600 dark:text-emerald-400 text-base animate-pulse"></i>
+                    <span class="hidden md:inline">100% Virus-Free & Verified</span>
+                </div>
+                <!-- Ninite Batch Lock Button -->
+                <button onclick="toggleBatchMode()" id="batchLockBtn" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-emerald-100 dark:hover:bg-slate-700 transition shadow-inner relative" title="Toggle Bulk Install Mode (Ninite Style)">
+                    <i id="batchLockIcon" class="fa-solid fa-lock text-base"></i>
+                    <span id="batchCountBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                </button>
+            </div>
+
+            <!-- Center: Brand Name & Clock -->
+            <div class="text-center flex flex-col items-center">
+                <div class="flex items-center space-x-2">
+                    <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                        PcControl<span class="text-emerald-600 dark:text-emerald-400">Soft</span>
+                    </h1>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">
+                    Helps you download software you know.
+                </p>
+                <div id="liveClock" class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
+                    Loading Date...
+                </div>
+            </div>
+
+            <!-- Right: Logo & Theme Switch -->
+            <div class="flex items-center space-x-3">
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition shadow-inner" title="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-chess-knight text-xl"></i>
+                </button>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-chess-knight text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- OS NAVIGATION BAR -->
+    <nav class="bg-gray-100 dark:bg-slate-800/60 border-b border-gray-200 dark:border-slate-700 py-2.5 sticky top-20 z-30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-4 sm:space-x-8 text-sm font-medium">
+            <button onclick="scrollToOS('windowsSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-windows text-blue-500 text-lg"></i>
+                <span>Windows OS (128 Apps)</span>
+            </button>
+            <button onclick="scrollToOS('macSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-lg"></i>
+                <span>macOS (128 Apps)</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- SEARCH HERO SECTION -->
+        <section class="max-w-2xl mx-auto mb-6 text-center">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                <div id="rainbowSearchContainer" class="w-full pl-12 pr-28 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-gray-300 dark:border-slate-700 text-slate-900 dark:text-white shadow-lg text-sm sm:text-base transition flex items-center text-left relative overflow-hidden">
+                    <span id="coloredSearchText" class="font-semibold whitespace-nowrap"></span>
+                    <input type="text" id="searchInput" placeholder="Search software (Python-style colorful query)..." 
+                        class="w-full bg-transparent focus:outline-none custom-cursor-input text-slate-900 dark:text-white placeholder-gray-400 absolute left-12 right-28 top-1/2 -translate-y-1/2">
+                    <span class="blinking-red-cursor absolute" id="redCursor" style="left: 48px;"></span>
+                </div>
+                <button onclick="executeBatchDownload()" id="batchActionBtn" class="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow hidden">
+                    <i class="fa-solid fa-download mr-1"></i> Get Selected (<span id="batchBtnCount">0</span>)
+                </button>
+                <kbd class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-semibold text-gray-500 bg-gray-100 border border-gray-300 rounded-md dark:bg-slate-700 dark:text-gray-300 dark:border-slate-600" id="kbdHint">Ctrl K</kbd>
+            </div>
+            <div id="searchCounter" class="text-xs text-gray-500 dark:text-gray-400 mt-2 h-4"></div>
+        </section>
+
+        <!-- 4 RECTANGLES UNDER SEARCH BAR -->
+        <section class="max-w-5xl mx-auto mb-10 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div onclick="showToast('Web Design category tools focused')" class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm text-center cursor-pointer hover:border-emerald-500 transition">
+                <i class="fa-solid fa-code text-blue-500 text-lg mb-1"></i>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white">تصميم المواقع</h4>
+                <span class="text-[10px] text-gray-400">Web Design Tools</span>
+            </div>
+            <div onclick="showToast('Hosting tools category focused')" class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm text-center cursor-pointer hover:border-emerald-500 transition">
+                <i class="fa-solid fa-server text-emerald-500 text-lg mb-1"></i>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white">الاستضافات</h4>
+                <span class="text-[10px] text-gray-400">Hosting Solutions</span>
+            </div>
+            <div onclick="showToast('Designer tools category focused')" class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm text-center cursor-pointer hover:border-emerald-500 transition">
+                <i class="fa-solid fa-pen-nib text-purple-500 text-lg mb-1"></i>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white">أدوات المصممين</h4>
+                <span class="text-[10px] text-gray-400">Designer Utilities</span>
+            </div>
+            <div onclick="showToast('AI tools category focused')" class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm text-center cursor-pointer hover:border-emerald-500 transition">
+                <i class="fa-solid fa-robot text-rose-500 text-lg mb-1"></i>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white">أدوات الذكاء الاصطناعي</h4>
+                <span class="text-[10px] text-gray-400">AI Assistants</span>
+            </div>
+        </section>
+
+        <!-- WINDOWS SOFTWARE SECTION (128 Apps / 2 Groups of 64) -->
+        <section id="windowsSection" class="mb-14">
+            <div class="flex items-center justify-between border-b-2 border-blue-500 pb-3 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-windows text-blue-500 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Windows Directory <span class="text-xs font-normal text-gray-500">(128 Sorted Applications)</span></h2>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 rounded-full">Windows 10 / 11</span>
+            </div>
+
+            <!-- Group 1 (First 64 Apps) boxed container -->
+            <div class="mb-8 p-4 rounded-2xl border-2 border-dashed border-gray-300 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/30">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">مجموعة البرمجيات الأولى (64 تطبيق أساسي)</div>
+                <div id="windowsGridGroup1" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+
+            <!-- Group 2 (Second 64 Apps / New Categories) boxed container -->
+            <div class="p-4 rounded-2xl border-2 border-dashed border-gray-300 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/30">
+                <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">مجموعة البرمجيات الإضافية (64 تطبيق إضافي وتصنيفات جديدة)</div>
+                <div id="windowsGridGroup2" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+        </section>
+
+        <!-- MACOS SOFTWARE SECTION (128 Apps / 2 Groups of 64) -->
+        <section id="macSection" class="mb-14">
+            <div class="flex items-center justify-between border-b-2 border-slate-700 pb-3 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">macOS Directory <span class="text-xs font-normal text-gray-500">(128 Sorted Applications)</span></h2>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 rounded-full">Apple Silicon & Intel</span>
+            </div>
+
+            <!-- Group 1 (First 64 Apps) boxed container -->
+            <div class="mb-8 p-4 rounded-2xl border-2 border-dashed border-gray-300 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/30">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">مجموعة برمجيات ماك الأولى (64 تطبيق أساسي)</div>
+                <div id="macGridGroup1" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+
+            <!-- Group 2 (Second 64 Apps) boxed container -->
+            <div class="p-4 rounded-2xl border-2 border-dashed border-gray-300 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/30">
+                <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">مجموعة برمجيات ماك الإضافية (64 تطبيق إضافي)</div>
+                <div id="macGridGroup2" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SIDE DRAWER MODAL FOR APP DETAILS -->
+    <div id="appDetailModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-end">
+        <div class="bg-white dark:bg-slate-800 w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto transform transition-transform duration-300">
+            <div>
+                <div class="flex items-center justify-between border-b border-gray-200 dark:border-slate-700 pb-4 mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div id="modalAppIconBox" class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-2xl"></div>
+                        <div>
+                            <h3 id="modalAppName" class="text-lg font-bold text-slate-900 dark:text-white">App Name</h3>
+                            <span id="modalAppCategory" class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Category</span>
+                        </div>
+                    </div>
+                    <button onclick="closeAppModal()" class="text-gray-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="space-y-4 text-xs text-gray-600 dark:text-gray-300">
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-1">وصف البرنامج والتفاصيل الفنية:</h4>
+                        <p id="modalAppDesc" class="leading-relaxed"></p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="bg-gray-50 dark:bg-slate-700/50 p-3 rounded-xl">
+                            <span class="block text-gray-400 text-[10px]">حجم الملف</span>
+                            <span id="modalAppSize" class="font-bold text-slate-900 dark:text-white text-sm">--</span>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-slate-700/50 p-3 rounded-xl">
+                            <span class="block text-gray-400 text-[10px]">حالة الأمان</span>
+                            <span class="font-bold text-emerald-600 text-sm">100% نظيف ومفحوص</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-3 pt-4 border-t border-gray-200 dark:border-slate-700">
+                <button id="modalDownloadBtn" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>تحميل مباشر (Direct Download)</span>
+                </button>
+                <button onclick="closeAppModal()" class="w-full py-2 bg-gray-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-xl text-xs">إغلاق القائمة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-8 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <p class="font-medium text-gray-700 dark:text-gray-300">
+                &copy; <span id="yearSpan"></span> <strong class="text-slate-900 dark:text-white">PcControlSoft</strong>. Developed & Maintained by <span class="text-emerald-600 dark:text-emerald-400 font-bold">ABDELKARIM LAITAR</span>.
+            </p>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white dark:bg-emerald-600 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-white text-base"></i>
+        <span id="toastMsg">Action completed!</span>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // --- 16 CATEGORIES TOTAL (8 for Group 1, 8 for Group 2) ---
+        const CATEGORIES_G1 = [
+            "Web Browsers", "Antivirus & Security", "Media Players", "Compression Tools",
+            "Communication", "Image Editors", "System Optimization", "PDF Readers"
+        ];
+
+        const CATEGORIES_G2 = [
+            "Web Design & Dev", "Cloud Hosting", "Designer Utilities", "AI Assistants",
+            "Video Production", "Audio Engineering", "Database Tools", "Network Utilities"
+        ];
+
+        // --- GENERATE 128 SORTED WINDOWS APPS ---
+        function generateApps(categories) {
+            let data = {};
+            categories.forEach(cat => {
+                let apps = [];
+                for (let i = 1; i <= 8; i++) {
+                    apps.push({
+                        name: `${cat.split(' ')[0]} Tool ${i}`,
+                        icon: getCategoryIcon(cat, i),
+                        color: getCategoryColor(i),
+                        desc: `Official high-performance verified application for ${cat} tasks, optimized for stability.`,
+                        size: `${(i * 12 + 4)} MB`,
+                        url: `https://www.google.com/search?q=${encodeURIComponent(cat + ' tool ' + i)}`
+                    });
+                }
+                data[cat] = apps;
+            });
+            return data;
+        }
+
+        function getCategoryIcon(cat, idx) {
+            const icons = ["fa-solid fa-bolt", "fa-solid fa-shield", "fa-solid fa-microchip", "fa-solid fa-cube", "fa-solid fa-terminal", "fa-solid fa-code", "fa-solid fa-database", "fa-solid fa-server"];
+            return icons[idx % icons.length];
+        }
+
+        function getCategoryColor(idx) {
+            const colors = ["text-blue-500", "text-emerald-500", "text-purple-500", "text-amber-500", "text-red-500", "text-teal-500", "text-indigo-500", "text-rose-500"];
+            return colors[idx % colors.length];
+        }
+
+        const windowsDataG1 = generateApps(CATEGORIES_G1);
+        const windowsDataG2 = generateApps(CATEGORIES_G2);
+        const macDataG1 = generateApps(CATEGORIES_G1);
+        const macDataG2 = generateApps(CATEGORIES_G2);
+
+        let batchModeActive = false;
+        let selectedAppsForBatch = new Set();
+
+        function toggleBatchMode() {
+            batchModeActive = !batchModeActive;
+            const btn = document.getElementById('batchLockBtn');
+            const icon = document.getElementById('batchLockIcon');
+            const actionBtn = document.getElementById('batchActionBtn');
+            if (batchModeActive) {
+                btn.classList.add('bg-emerald-500', 'text-white');
+                icon.className = "fa-solid fa-lock-open text-base";
+                actionBtn.classList.remove('hidden');
+                showToast("Ninite batch mode activated! Click any app tile to select.");
+            } else {
+                btn.classList.remove('bg-emerald-500', 'text-white');
+                icon.className = "fa-solid fa-lock text-base";
+                actionBtn.classList.add('hidden');
+                selectedAppsForBatch.clear();
+                updateBatchUI();
+                showToast("Batch mode locked.");
+            }
+        }
+
+        function updateBatchUI() {
+            document.getElementById('batchCountBadge').textContent = selectedAppsForBatch.size;
+            document.getElementById('batchBtnCount').textContent = selectedAppsForBatch.size;
+            if (selectedAppsForBatch.size > 0) {
+                document.getElementById('batchCountBadge').classList.remove('hidden');
+            } else {
+                document.getElementById('batchCountBadge').classList.add('hidden');
+            }
+        }
+
+        function executeBatchDownload() {
+            if (selectedAppsForBatch.size === 0) {
+                showToast("Please select at least one application.");
+                return;
+            }
+            speakAppName(`Preparing batch installer for ${selectedAppsForBatch.size} applications`);
+            showToast(`Generating custom installer script for ${selectedAppsForBatch.size} apps...`);
+            setTimeout(() => {
+                window.open('https://ninite.com/', '_blank');
+            }, 1000);
+        }
+
+        // Render Grid Function
+        function renderGrid(dataObj, categories, containerId, osName) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            categories.forEach((catName, colIndex) => {
+                const colDiv = document.createElement('div');
+                colDiv.className = 'flex flex-col space-y-3';
+
+                const header = document.createElement('div');
+                header.className = 'bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-gray-200 dark:border-slate-700 text-center shadow-sm';
+                header.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block truncate">${catName}</span>
+                    <span class="text-[9px] text-gray-400 font-medium">Sorted Popularity</span>
+                `;
+                colDiv.appendChild(header);
+
+                const items = dataObj[catName] || [];
+                items.forEach((sw, rowIndex) => {
+                    const tile = document.createElement('div');
+                    tile.dataset.os = osName;
+                    tile.dataset.name = sw.name.toLowerCase();
+                    tile.className = 'software-tile relative bg-white dark:bg-slate-800 rounded-xl p-2.5 border border-gray-200 dark:border-slate-700 shadow-3d-light dark:shadow-3d-dark hover:shadow-3d-hover group cursor-pointer flex flex-col justify-between h-32';
+                    
+                    // Click tile opens detail drawer, unless in batch mode
+                    tile.onclick = () => {
+                        if (batchModeActive) {
+                            tile.classList.toggle('ring-4');
+                            tile.classList.toggle('ring-emerald-500');
+                            if (selectedAppsForBatch.has(sw.name)) {
+                                selectedAppsForBatch.delete(sw.name);
+                            } else {
+                                selectedAppsForBatch.add(sw.name);
+                            }
+                            updateBatchUI();
+                        } else {
+                            openAppDetail(sw, catName);
+                        }
+                    };
+
+                    tile.innerHTML = `
+                        <div class="flex items-start justify-between">
+                            <div class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-base ${sw.color}">
+                                <i class="${sw.icon}"></i>
+                            </div>
+                            <div class="text-[9px] text-amber-400 flex space-x-0.5">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+
+                        <div class="my-0.5">
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">${sw.name}</h4>
+                            <span class="text-[9px] text-gray-400 font-mono block">${sw.size}</span>
+                        </div>
+
+                        <button onclick="handleDirectDownload(event, '${sw.name}', '${sw.url}', this)" class="w-full py-1.5 px-2 bg-slate-100 hover:bg-emerald-600 text-slate-700 hover:text-white dark:bg-slate-700 dark:hover:bg-emerald-500 dark:text-slate-200 rounded-lg text-[10px] font-bold transition flex items-center justify-center space-x-1 shadow-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Get App</span>
+                        </button>
+                    `;
+                    colDiv.appendChild(tile);
+                });
+                container.appendChild(colDiv);
+            });
+        }
+
+        // Speech Synthesis for Downloading
+        function speakAppName(appName) {
+            try {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(`Downloading ${appName}`);
+                    utterance.rate = 1.0;
+                    window.speechSynthesis.speak(utterance);
+                }
+            } catch (e) {}
+        }
+
+        function handleDirectDownload(e, name, url, btn) {
+            e.stopPropagation();
+            speakAppName(name);
+            showToast(`Starting direct download for ${name}...`);
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Downloading`;
+            setTimeout(() => {
+                window.open(url, '_blank');
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> Completed`;
+                setTimeout(() => {
+                    btn.innerHTML = `<i class="fa-solid fa-download"></i> Get App`;
+                }, 3000);
+            }, 800);
+        }
+
+        // Side Drawer Modal
+        function openAppDetail(sw, category) {
+            document.getElementById('modalAppName').textContent = sw.name;
+            document.getElementById('modalAppCategory').textContent = category;
+            document.getElementById('modalAppDesc').textContent = sw.desc;
+            document.getElementById('modalAppSize').textContent = sw.size;
+            document.getElementById('modalAppIconBox').className = `w-12 h-12 rounded-xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-2xl ${sw.color}`;
+            document.getElementById('modalAppIconBox').innerHTML = `<i class="${sw.icon}"></i>`;
+            document.getElementById('modalDownloadBtn').onclick = () => {
+                speakAppName(sw.name);
+                window.open(sw.url, '_blank');
+            };
+            document.getElementById('appDetailModal').classList.remove('hidden');
+        }
+
+        function closeAppModal() {
+            document.getElementById('appDetailModal').classList.add('hidden');
+        }
+
+        // Search & Rainbow/Python style coloring
+        const searchInput = document.getElementById('searchInput');
+        const searchCounter = document.getElementById('searchCounter');
+        const coloredSearchText = document.getElementById('coloredSearchText');
+        const redCursor = document.getElementById('redCursor');
+
+        const pythonColors = ['text-blue-500', 'text-emerald-500', 'text-amber-500', 'text-purple-500', 'text-rose-500', 'text-teal-500'];
+
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            // Update Python-style colored words representation
+            const words = val.split(' ');
+            coloredSearchText.innerHTML = words.map((w, idx) => `<span class="${pythonColors[idx % pythonColors.length]} mr-1">${w}</span>`).join('');
+            
+            // Adjust cursor position approx
+            redCursor.style.left = (48 + (val.length * 8)) + 'px';
+
+            const query = val.toLowerCase().trim();
+            const tiles = document.querySelectorAll('.software-tile');
+            let count = 0;
+            tiles.forEach(tile => {
+                if (tile.dataset.name.includes(query)) {
+                    tile.style.display = 'flex';
+                    count++;
+                } else {
+                    tile.style.display = 'none';
+                }
+            });
+            searchCounter.textContent = query ? `Found ${count} matching applications.` : '';
+        });
+
+        // Theme Toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                showToast("Switched to Pure White Light Theme");
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                showToast("Switched to Ultra-Dark Theme");
+            }
+        });
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        function scrollToOS(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+        // Initialize Grids on Load
+        window.onload = function() {
+            renderGrid(windowsDataG1, CATEGORIES_G1, 'windowsGridGroup1', 'win');
+            renderGrid(windowsDataG2, CATEGORIES_G2, 'windowsGridGroup2', 'win');
+            renderGrid(macDataG1, CATEGORIES_G1, 'macGridGroup1', 'mac');
+            renderGrid(macDataG2, CATEGORIES_G2, 'macGridGroup2', 'mac');
+        };
+    </script>
+</body>
+</html>
