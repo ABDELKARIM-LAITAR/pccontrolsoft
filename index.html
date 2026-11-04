@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PcControlSoft - 100% Virus-Free PC & Mac Software Directory</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        darkTile: '#1e293b',
+                        lightTile: '#ffffff',
+                    },
+                    boxShadow: {
+                        '3d-light': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+                        '3d-dark': '0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        '3d-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .software-tile {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+        .software-tile:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .downloading-tile {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .dark .downloading-tile {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+        }
+
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #facc15 transparent;
+            display: block;
+            width: 0;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- HEADER BAR -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <div class="flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 text-xs sm:text-sm font-semibold shadow-sm">
+                <i class="fa-solid fa-shield-halved text-emerald-600 dark:text-emerald-400 text-base animate-pulse"></i>
+                <span class="hidden md:inline">100% Virus-Free & Verified</span>
+            </div>
+
+            <div class="text-center flex flex-col items-center">
+                <div class="flex items-center space-x-2">
+                    <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                        PcControl<span class="text-emerald-600 dark:text-emerald-400">Soft</span>
+                    </h1>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">
+                    Single Click: Direct Download | Double Click: Open Official Page
+                </p>
+                <div id="liveClock" class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
+                    Loading Date...
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition shadow-inner" title="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-chess-knight text-xl transform hover:rotate-12 transition-transform"></i>
+                </button>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-chess-knight text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- OS NAVIGATION BAR -->
+    <nav class="bg-gray-100 dark:bg-slate-800/60 border-b border-gray-200 dark:border-slate-700 py-2.5 sticky top-20 z-30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-4 sm:space-x-8 text-sm font-medium">
+            <button onclick="scrollToOS('windowsSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-windows text-blue-500 text-lg"></i>
+                <span>Windows OS</span>
+            </button>
+            <button onclick="scrollToOS('macSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-lg"></i>
+                <span>macOS</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- SEARCH & CATEGORIES DROPDOWN FILTER SECTION -->
+        <section class="max-w-3xl mx-auto mb-10 text-center space-y-4">
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <!-- Search Input -->
+                <div class="relative flex-1 w-full">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                    <input type="text" id="searchInput" placeholder="Search software... (Press Ctrl+K)" 
+                        class="w-full pl-12 pr-12 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 shadow-lg text-sm sm:text-base transition">
+                    <kbd class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-semibold text-gray-500 bg-gray-100 border border-gray-300 rounded-md dark:bg-slate-700 dark:text-gray-300">Ctrl K</kbd>
+                </div>
+
+                <!-- 20 Categories Dropdown Selector -->
+                <div class="relative w-full sm:w-64">
+                    <select id="categorySelect" onfocus="speakPrompt('Choose the type of software that suits you')" class="w-full py-3.5 px-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-emerald-500/80 text-slate-900 dark:text-white font-bold text-sm focus:outline-none shadow-lg cursor-pointer transition">
+                        <option value="ALL">Categories (All Types)</option>
+                        <option value="Web Browsers">1. Web Browsers</option>
+                        <option value="Antivirus & Security">2. Antivirus & Security</option>
+                        <option value="Media Players">3. Media Players</option>
+                        <option value="Compression Tools">4. Compression Tools</option>
+                        <option value="Communication">5. Communication</option>
+                        <option value="Image Editors">6. Image Editors</option>
+                        <option value="System Optimization">7. System Optimization</option>
+                        <option value="PDF & Document Readers">8. PDF & Document Readers</option>
+                        <option value="Developer Tools">9. Developer Tools</option>
+                        <option value="Cloud Storage">10. Cloud Storage & Sync</option>
+                        <option value="Audio Production">11. Audio Production</option>
+                        <option value="Video Editing">12. Video Editing & FX</option>
+                        <option value="3D & Graphics">13. 3D Modeling & CAD</option>
+                        <option value="Torrent & Downloaders">14. Downloaders & Torrents</option>
+                        <option value="Disk & Backup">15. Disk & Backup Tools</option>
+                        <option value="Password Managers">16. Password Managers</option>
+                        <option value="VPN & Anonymity">17. VPN & Anonymity</option>
+                        <option value="Text Editors & Office">18. Office & Text Editors</option>
+                        <option value="Gaming Utilities">19. Gaming Utilities</option>
+                        <option value="Hardware Benchmarks">20. Hardware Benchmarks</option>
+                    </select>
+                </div>
+            </div>
+            <div id="searchCounter" class="text-xs text-gray-500 dark:text-gray-400 h-4"></div>
+        </section>
+
+        <!-- WINDOWS SOFTWARE SECTION -->
+        <section id="windowsSection" class="mb-14">
+            <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-windows text-blue-500 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Windows Directory (128 Applications)</h2>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 rounded-full">Windows 10 / 11</span>
+            </div>
+            <div id="windowsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+        </section>
+
+        <!-- MACOS SOFTWARE SECTION -->
+        <section id="macSection" class="mb-14">
+            <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">macOS Directory (128 Applications)</h2>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 rounded-full">Apple Silicon & Intel</span>
+            </div>
+            <div id="macGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-8 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; <span id="yearSpan"></span> <strong>PcControlSoft</strong>. Developed by <span class="text-emerald-600 dark:text-emerald-400 font-bold">ABDELKARIM LAITAR</span>.</p>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white dark:bg-emerald-600 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMsg">Action completed!</span>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        const CATEGORIES = ["Web Browsers", "Antivirus & Security", "Media Players", "Compression Tools", "Communication", "Image Editors", "System Optimization", "PDF & Document Readers"];
+
+        const windowsSoftwareData = {
+            "Web Browsers": [
+                { name: "Google Chrome", icon: "fa-brands fa-chrome", color: "text-red-500", desc: "Fast & secure web browser by Google.", url: "https://www.google.com/chrome/" },
+                { name: "Mozilla Firefox", icon: "fa-brands fa-firefox-browser", color: "text-orange-500", desc: "Privacy-focused open-source web browser.", url: "https://www.mozilla.org/firefox/" },
+                { name: "Microsoft Edge", icon: "fa-brands fa-edge", color: "text-blue-500", desc: "High performance browser built on Chromium.", url: "https://www.microsoft.com/edge" },
+                { name: "Brave Browser", icon: "fa-brands fa-brave", color: "text-amber-600", desc: "Blocks ads & trackers by default automatically.", url: "https://brave.com/" },
+                { name: "Opera FX", icon: "fa-brands fa-opera", color: "text-red-600", desc: "Browser with free built-in VPN & messenger.", url: "https://www.opera.com/" },
+                { name: "Vivaldi", icon: "fa-solid fa-compass", color: "text-rose-500", desc: "Ultra customizable browser for power users.", url: "https://vivaldi.com/" },
+                { name: "Tor Browser", icon: "fa-solid fa-user-ninja", color: "text-purple-600", desc: "Protect your privacy with onion routing network.", url: "https://www.torproject.org/" },
+                { name: "Waterfox", icon: "fa-solid fa-water", color: "text-cyan-500", desc: "Ethical 64-bit web browser based on Firefox.", url: "https://www.waterfox.net/" },
+                { name: "LibreWolf", icon: "fa-solid fa-wolf-pack-battalion", color: "text-slate-600", desc: "Customized Firefox version focused on privacy.", url: "https://librewolf.net/" },
+                { name: "Thorium", icon: "fa-solid fa-atom", color: "text-emerald-600", desc: "Super-fast custom optimized Chromium browser.", url: "https://thorium.rocks/" },
+                { name: "Maxthon", icon: "fa-solid fa-m", color: "text-indigo-500", desc: "Cloud-based dual-engine web browser.", url: "https://www.maxthon.com/" },
+                { name: "UC Browser", icon: "fa-solid fa-globe", color: "text-orange-600", desc: "Fast mobile and desktop web browsing tool.", url: "https://www.ucweb.com/" },
+                { name: "Epic Browser", icon: "fa-solid fa-shield-halved", color: "text-blue-400", desc: "Private browser with built-in ad blocker.", url: "https://www.epicbrowser.com/" },
+                { name: "Cent Browser", icon: "fa-solid fa-circle-notch", color: "text-red-400", desc: "Enhanced Chromium browser with rich features.", url: "https://www.centbrowser.com/" },
+                { name: "SuperBird", icon: "fa-solid fa-feather", color: "text-teal-500", desc: "Fast alternative browser based on Chromium.", url: "https://www.superbird-browser.com/" },
+                { name: "Lunascape", icon: "fa-solid fa-moon", color: "text-purple-400", desc: "Tri-engine web browser for advanced testing.", url: "https://www.lunascape.tv/" }
+            ],
+            "Antivirus & Security": [
+                { name: "Malwarebytes", icon: "fa-solid fa-shield-virus", color: "text-blue-600", desc: "Removes malware, viruses, and cyber threats.", url: "https://www.malwarebytes.com/" },
+                { name: "Bitdefender Free", icon: "fa-solid fa-shield-cat", color: "text-red-600", desc: "Lightweight, silent & powerful virus shield.", url: "https://www.bitdefender.com/" },
+                { name: "Avast Security", icon: "fa-solid fa-shield", color: "text-orange-500", desc: "Essential security & wi-fi threat scanner.", url: "https://www.avast.com/" },
+                { name: "AVG AntiVirus", icon: "fa-solid fa-user-shield", color: "text-emerald-500", desc: "Blocks viruses, spyware, and ransomware threats.", url: "https://www.avg.com/" },
+                { name: "Kaspersky Free", icon: "fa-solid fa-lock", color: "text-teal-600", desc: "Top-rated cloud antivirus protection layer.", url: "https://www.kaspersky.com/" },
+                { name: "Emsisoft Kit", icon: "fa-solid fa-bug-slash", color: "text-blue-500", desc: "Emergency malware cleanup tool suite.", url: "https://www.emsisoft.com/" },
+                { name: "Spybot Search", icon: "fa-solid fa-user-secret", color: "text-sky-600", desc: "Detects and removes stubborn spyware apps.", url: "https://www.safer-networking.org/" },
+                { name: "GlassWire", icon: "fa-solid fa-chart-line", color: "text-violet-500", desc: "Visual network monitor & firewall security.", url: "https://www.glasswire.com/" },
+                { name: "Avira Free", icon: "fa-solid fa-umbrella", color: "text-red-500", desc: "Reliable antivirus protection and VPN tool.", url: "https://www.avira.com/" },
+                { name: "Norton Power", icon: "fa-solid fa-bolt-lightning", color: "text-yellow-500", desc: "Aggressive malware & rootkit removal tool.", url: "https://support.norton.com/" },
+                { name: "AdwCleaner", icon: "fa-solid fa-broom", color: "text-blue-500", desc: "Removes adware and unwanted toolbars instantly.", url: "https://www.malwarebytes.com/adwcleaner" },
+                { name: "Sophos Home", icon: "fa-solid fa-house-laptop", color: "text-indigo-600", desc: "Enterprise-grade security for home computers.", url: "https://home.sophos.com/" },
+                { name: "ZoneAlarm", icon: "fa-solid fa-fire-shield", color: "text-red-700", desc: "Legendary firewall and anti-ransomware protection.", url: "https://www.zonealarm.com/" },
+                { name: "ClamWin", icon: "fa-solid fa-worm", color: "text-green-600", desc: "Open-source antivirus scanner for Windows.", url: "https://www.clamwin.com/" },
+                { name: "Comodo Firewall", icon: "fa-solid fa-network-wired", color: "text-blue-700", desc: "Packet-inspection firewall and defense shield.", url: "https://www.comodo.com/" },
+                { name: "HitmanPro", icon: "fa-solid fa-crosshairs", color: "text-amber-700", desc: "Deep cloud scanner for advanced malware threats.", url: "https://www.hitmanpro.com/" }
+            ],
+            "Media Players": [
+                { name: "VLC Player", icon: "fa-solid fa-cone-sf", color: "text-orange-500", desc: "Plays almost any video and audio file format.", url: "https://www.videolan.org/" },
+                { name: "PotPlayer", icon: "fa-solid fa-circle-play", color: "text-amber-500", desc: "Feature-rich multimedia player for Windows.", url: "https://potplayer.daum.net/" },
+                { name: "MPC-HC", icon: "fa-solid fa-film", color: "text-slate-700 dark:text-slate-200", desc: "Classic lightweight media player for PC.", url: "https://mpc-hc.org/" },
+                { name: "KMPlayer", icon: "fa-solid fa-play", color: "text-indigo-500", desc: "Supports high-definition 4K & 8K video playback.", url: "https://www.kmplayer.com/" },
+                { name: "AIMP Audio", icon: "fa-solid fa-music", color: "text-orange-600", desc: "High quality audio player and sound processor.", url: "https://www.aimp.ru/" },
+                { name: "Foobar2000", icon: "fa-solid fa-compact-disc", color: "text-slate-600", desc: "Advanced modular audio player for music lovers.", url: "https://www.foobar2000.org/" },
+                { name: "K-Lite Codecs", icon: "fa-solid fa-sliders", color: "text-blue-600", desc: "Essential collection of video codecs & filters.", url: "https://codecguide.com/" },
+                { name: "HandBrake", icon: "fa-solid fa-cubes", color: "text-red-500", desc: "Open-source video transcoder and converter.", url: "https://handbrake.fr/" },
+                { name: "GOM Player", icon: "fa-solid fa-video", color: "text-blue-500", desc: "Popular media player with extensive codec support.", url: "https://www.gomlab.com/" },
+                { name: "Audacity", icon: "fa-solid fa-microphone-lines", color: "text-slate-500", desc: "Free audio recording and editing software.", url: "https://www.audacityteam.org/" },
+                { name: "Winamp", icon: "fa-solid fa-bolt", color: "text-orange-400", desc: "The legendary retro media player reborn.", url: "https://www.winamp.com/" },
+                { name: "RealPlayer", icon: "fa-solid fa-play-circle", color: "text-red-600", desc: "Stream and download web videos easily.", url: "https://www.real.com/" },
+                { name: "MusicBee", icon: "fa-solid fa-headphones", color: "text-amber-600", desc: "Ultimate music manager and player.", url: "https://getmusicbee.com/" },
+                { name: "Clementine", icon: "fa-solid fa-lemon", color: "text-yellow-500", desc: "Multiplatform music player and library organizer.", url: "https://www.clementine-player.org/" },
+                { name: "MediaMonkey", icon: "fa-solid fa-monkey", color: "text-blue-800", desc: "Manage extensive music and video collections.", url: "https://www.mediamonkey.com/" },
+                { name: "Stremio", icon: "fa-solid fa-tv", color: "text-purple-600", desc: "Modern media center for streaming content.", url: "https://www.stremio.com/" }
+            ],
+            "Compression Tools": [
+                { name: "7-Zip", icon: "fa-solid fa-file-zipper", color: "text-slate-800 dark:text-slate-100", desc: "High compression ratio open source archiver.", url: "https://www.7-zip.org/" },
+                { name: "WinRAR", icon: "fa-solid fa-box-archive", color: "text-blue-600", desc: "Powerful archive manager for RAR & ZIP.", url: "https://www.rarlab.com/" },
+                { name: "Bandizip", icon: "fa-solid fa-file-archiving", color: "text-emerald-600", desc: "Fast archiver with easy drag and drop.", url: "https://en.bandisoft.com/bandizip/" },
+                { name: "PeaZip", icon: "fa-solid fa-box", color: "text-teal-500", desc: "Free archiver utility supporting 200+ formats.", url: "https://peazip.github.io/" },
+                { name: "WinZip", icon: "fa-solid fa-folder-closed", color: "text-amber-600", desc: "Classic compression tool with cloud integration.", url: "https://www.winzip.com/" },
+                { name: "ExtractNow", icon: "fa-solid fa-arrows-split-up-and-left", color: "text-violet-600", desc: "Extract multiple compressed archives at once easily.", url: "https://www.extractnow.com/" },
+                { name: "IZArc", icon: "fa-solid fa-file-code", color: "text-sky-500", desc: "Supports major archive formats including ISO images.", url: "https://www.izarc.org/" },
+                { name: "Hamster Zip", icon: "fa-solid fa-file-shield", color: "text-rose-500", desc: "Modern UI zip archiver with cloud support.", url: "https://zip.hamstersoft.com/" },
+                { name: "B1 Free Archiver", icon: "fa-solid fa-cube", color: "text-orange-500", desc: "Simple file archiver for all major platforms.", url: "https://b1.org/" },
+                { name: "NanaZip", icon: "fa-solid fa-file-zipper", color: "text-blue-500", desc: "Open-source archiver tailored for Windows 11.", url: "https://github.com/M2Team/NanaZip" },
+                { name: "PowerArchiver", icon: "fa-solid fa-shield-halved", color: "text-red-500", desc: "Advanced encryption and compression suite.", url: "https://www.powerarchiver.com/" },
+                { name: "Universal Extractor", icon: "fa-solid fa-boxes-packing", color: "text-amber-700", desc: "Unpack files from any type of archive or installer.", url: "https://www.legroom.net/software/uniextract" },
+                { name: "TugZip", icon: "fa-solid fa-folder-open", color: "text-teal-600", desc: "Free utility to manage compressed files.", url: "http://www.tugzip.com/" },
+                { name: "ArcTheFolder", icon: "fa-solid fa-folder-plus", color: "text-indigo-400", desc: "Quick folder compression tool.", url: "https://www.freewaregenius.com/" },
+                { name: "ZipGenius", icon: "fa-solid fa-file-zipper", color: "text-yellow-600", desc: "Complete archive management solution.", url: "https://www.zipgenius.it/" },
+                { name: "Keka Mac", icon: "fa-solid fa-box", color: "text-pink-500", desc: "The open source file archiver for macOS.", url: "https://www.keka.io/" }
+            ],
+            "Communication": [
+                { name: "Discord", icon: "fa-brands fa-discord", color: "text-indigo-500", desc: "Voice, video, and text communication platform.", url: "https://discord.com/" },
+                { name: "Telegram PC", icon: "fa-brands fa-telegram", color: "text-sky-500", desc: "Fast, secure, and synchronized cloud messaging.", url: "https://desktop.telegram.org/" },
+                { name: "WhatsApp Desktop", icon: "fa-brands fa-whatsapp", color: "text-emerald-500", desc: "Desktop messaging with end-to-end encryption.", url: "https://www.whatsapp.com/" },
+                { name: "Zoom Meetings", icon: "fa-solid fa-video", color: "text-blue-500", desc: "HD video conferencing & screen sharing software.", url: "https://zoom.us/" },
+                { name: "Skype", icon: "fa-brands fa-skype", color: "text-sky-600", desc: "Free HD video calls and messaging service.", url: "https://www.skype.com/" },
+                { name: "Signal", icon: "fa-solid fa-comment-sms", color: "text-blue-600", desc: "Private messaging focused on extreme security.", url: "https://signal.org/" },
+                { name: "Slack", icon: "fa-brands fa-slack", color: "text-amber-500", desc: "Team collaboration and workflow workspace.", url: "https://slack.com/" },
+                { name: "Thunderbird", icon: "fa-solid fa-envelope-open-text", color: "text-blue-500", desc: "Free email, calendar, and contact management.", url: "https://www.thunderbird.net/" },
+                { name: "Viber", icon: "fa-brands fa-viber", color: "text-purple-500", desc: "Calls, messages and sticker sharing app.", url: "https://www.viber.com/" },
+                { name: "Microsoft Teams", icon: "fa-brands fa-windows", color: "text-blue-700", desc: "Workplace chat, meetings, notes, and attachments.", url: "https://www.microsoft.com/microsoft-teams" },
+                { name: "Element", icon: "fa-solid fa-comments", color: "text-green-500", desc: "Secure collaboration and messenger app.", url: "https://element.io/" },
+                { name: "Pidgin", icon: "fa-solid fa-dove", color: "text-amber-600", desc: "Universal chat client for multiple networks.", url: "https://pidgin.im/" },
+                { name: "Matrix", icon: "fa-solid fa-cubes", color: "text-emerald-600", desc: "Open network for secure decentralized communication.", url: "https://matrix.org/" },
+                { name: "Trixbox", icon: "fa-solid fa-phone", color: "text-blue-400", desc: "VoIP telephony communication system.", url: "https://www.trixbox.org/" },
+                { name: "Line PC", icon: "fa-solid fa-comment", color: "text-green-600", desc: "Free calls and messages across devices.", url: "https://line.me/" },
+                { name: "Session", icon: "fa-solid fa-user-secret", color: "text-slate-800", desc: "End-to-end encrypted private messenger.", url: "https://getsession.org/" }
+            ],
+            "Image Editors": [
+                { name: "GIMP", icon: "fa-solid fa-palette", color: "text-slate-700 dark:text-slate-300", desc: "Free & open-source photo editing suite.", url: "https://www.gimp.org/" },
+                { name: "Paint.NET", icon: "fa-solid fa-paint-roller", color: "text-blue-500", desc: "Layer-based image and photo editing software.", url: "https://www.getpaint.net/" },
+                { name: "Krita Studio", icon: "fa-solid fa-pen-nib", color: "text-pink-500", desc: "Professional free digital painting & sketch tool.", url: "https://krita.org/" },
+                { name: "Inkscape", icon: "fa-solid fa-vector-square", color: "text-slate-900 dark:text-slate-100", desc: "Professional vector graphics editor for SVG.", url: "https://inkscape.org/" },
+                { name: "Darktable", icon: "fa-solid fa-camera-retro", color: "text-yellow-600", desc: "Open-source photography workflow & RAW developer.", url: "https://www.darktable.org/" },
+                { name: "PhotoScape X", icon: "fa-solid fa-wand-magic-sparkles", color: "text-[#d97706]", desc: "Fun & easy photo editor with filters.", url: "https://photoscapex.org/" },
+                { name: "DigiKam", icon: "fa-solid fa-images", color: "text-teal-600", desc: "Advanced open-source photo management app.", url: "https://www.digikam.org/" },
+                { name: "ShareX", icon: "fa-solid fa-crop-simple", color: "text-red-500", desc: "Screen capture, file sharing and productivity tool.", url: "https://getsharex.com/" },
+                { name: "Blender", icon: "fa-solid fa-cube", color: "text-orange-500", desc: "3D creation suite and animation software.", url: "https://www.blender.org/" },
+                { name: "RawTherapee", icon: "fa-solid fa-image", color: "text-green-600", desc: "RAW image processing program.", url: "https://rawtherapee.com/" },
+                { name: "Pinta", icon: "fa-solid fa-brush", color: "text-blue-400", desc: "Drawing and image editing tool inspired by Paint.NET.", url: "https://www.pinta-project.com/" },
+                { name: "MyPaint", icon: "fa-solid fa-pen", color: "text-purple-500", desc: "Fast and easy painting application for digital artists.", url: "https://mypaint.app/" },
+                { name: "Blender 3D", icon: "fa-solid fa-shapes", color: "text-amber-600", desc: "Professional 3D modeling and rendering tool.", url: "https://www.blender.org/" },
+                { name: "IrfanView", icon: "fa-solid fa-eye", color: "text-blue-600", desc: "Fast and lightweight image viewer and converter.", url: "https://www.irfanview.com/" },
+                { name: "FastStone", icon: "fa-solid fa-images", color: "text-amber-500", desc: "Image viewer, editor, and batch converter.", url: "https://www.faststone.org/" },
+                { name: "XnView MP", icon: "fa-solid fa-photo-film", color: "text-teal-500", desc: "Efficient photo viewer and resizer utility.", url: "https://www.xnview.com/" }
+            ],
+            "System Optimization": [
+                { name: "CCleaner", icon: "fa-solid fa-broom", color: "text-red-500", desc: "Cleans temporary files and optimizes system registry.", url: "https://www.ccleaner.com/" },
+                { name: "BleachBit", icon: "fa-solid fa-trash-can", color: "text-emerald-600", desc: "Free open-source disk space cleaner & privacy guard.", url: "https://www.bleachbit.org/" },
+                { name: "Revo Uninstaller", icon: "fa-solid fa-eraser", color: "text-blue-600", desc: "Completely removes stubborn software and leftovers.", url: "https://www.revouninstaller.com/" },
+                { name: "HWMonitor", icon: "fa-solid fa-microchip", color: "text-purple-600", desc: "Monitors PC hardware temperature, voltage, fan speed.", url: "https://www.cpuid.com/" },
+                { name: "Speccy", icon: "fa-solid fa-circle-info", color: "text-amber-600", desc: "Detailed hardware & system information viewer.", url: "https://www.ccleaner.com/speccy" },
+                { name: "Defraggler", icon: "fa-solid fa-hard-drive", color: "text-[#d97706]", desc: "Defragment individual files or entire hard drives.", url: "https://www.ccleaner.com/defraggler" },
+                { name: "Sysinternals", icon: "fa-solid fa-terminal", color: "text-slate-800 dark:text-slate-100", desc: "Advanced Windows troubleshooting utilities bundle.", url: "https://learn.microsoft.com/sysinternals/" },
+                { name: "CrystalDiskInfo", icon: "fa-solid fa-heart-pulse", color: "text-rose-600", desc: "HDD & SSD health monitoring utility.", url: "https://crystalmark.info/" },
+                { name: "IObit Uninstaller", icon: "fa-solid fa-trash", color: "text-red-600", desc: "Remove unwanted programs and browser extensions.", url: "https://www.iobit.com/" },
+                { name: "Wise Care 365", icon: "fa-solid fa-gauge-high", color: "text-emerald-500", desc: "PC checkup, cleaner and speed booster.", url: "https://www.wisecleaner.com/" },
+                { name: "Glary Utilities", icon: "fa-solid fa-wand-magic-sparkles", color: "text-blue-500", desc: "System maintenance and performance tweaks.", url: "https://www.glarysoft.com/" },
+                { name: "Autoruns", icon: "fa-solid fa-play", color: "text-indigo-600", desc: "See what programs are configured to startup.", url: "https://learn.microsoft.com/sysinternals/downloads/autoruns" },
+                { name: "Process Hacker", icon: "fa-solid fa-code-merge", color: "text-slate-700", desc: "Free, powerful multi-purpose task manager tool.", url: "https://processhacker.sourceforge.io/" },
+                { name: "MSI Afterburner", icon: "fa-solid fa-gauge", color: "text-orange-600", desc: "Graphics card overclocking and monitoring utility.", url: "https://www.msi.com/Landing/afterburner" },
+                { name: "CPU-Z", icon: "fa-solid fa-microchip", color: "text-blue-400", desc: "Gather information on main devices of your system.", url: "https://www.cpuid.com/softwares/cpu-z.html" },
+                { name: "GPU-Z", icon: "fa-solid fa-display", color: "text-green-500", desc: "Video card information and diagnostic utility.", url: "https://www.techpowerup.com/gpuz/" }
+            ],
+            "PDF & Document Readers": [
+                { name: "Sumatra PDF", icon: "fa-solid fa-file-pdf", color: "text-amber-500", desc: "Ultra fast, lightweight PDF, ePub, and eBook reader.", url: "https://www.sumatrapdfreader.org/" },
+                { name: "Adobe Acrobat Reader", icon: "fa-solid fa-file-lines", color: "text-red-600", desc: "Standard viewer for printing and commenting on PDFs.", url: "https://get.adobe.com/reader/" },
+                { name: "Foxit PDF Reader", icon: "fa-solid fa-book-open", color: "text-orange-500", desc: "Feature-rich PDF reader and form filler.", url: "https://www.foxit.com/" },
+                { name: "PDF24 Creator", icon: "fa-solid fa-print", color: "text-blue-500", desc: "Free PDF converter, merger, and editor tools.", url: "https://www.pdf24.org/" },
+                { name: "LibreOffice Suite", icon: "fa-solid fa-file-word", color: "text-emerald-600", desc: "Free open-source office suite alternative.", url: "https://www.libreoffice.org/" },
+                { name: "PDFsam Basic", icon: "fa-solid fa-scissors", color: "text-indigo-600", desc: "Split, merge, rotate, and extract PDF pages.", url: "https://pdfsam.org/" },
+                { name: "Okular", icon: "fa-solid fa-book-bookmark", color: "text-sky-500", desc: "Universal document viewer supporting multiple formats.", url: "https://okular.kde.org/" },
+                { name: "Calibre eBooks", icon: "fa-solid fa-book", color: "text-amber-700", desc: "Comprehensive eBook manager and reader.", url: "https://calibre-ebook.com/" },
+                { name: "PDF-XChange", icon: "fa-solid fa-file-shield", color: "text-blue-600", desc: "Feature-packed PDF viewer and editor.", url: "https://www.tracker-software.com/" },
+                { name: "FreeOffice", icon: "fa-solid fa-file-excel", color: "text-orange-600", desc: "Complete free office productivity suite.", url: "https://www.freeoffice.com/" },
+                { name: "AbiWord", icon: "fa-solid fa-file-lines", color: "text-blue-400", desc: "Free word processor similar to Microsoft Word.", url: "https://www.abisource.com/" },
+                { name: "STDU Viewer", icon: "fa-solid fa-book-reader", color: "text-emerald-700", desc: "View document formats like TIFF, PDF, DjVu.", url: "https://www.stdutility.com/" },
+                { name: "Joplin", icon: "fa-solid fa-note-sticky", color: "text-indigo-500", desc: "Open-source note taking and to-do application.", url: "https://joplinapp.org/" },
+                { name: "Obsidian", icon: "fa-solid fa-gem", color: "text-purple-600", desc: "Powerful knowledge base and markdown note app.", url: "https://obsidian.md/" },
+                { name: "Notepad++", icon: "fa-solid fa-file-code", color: "text-red-500", desc: "Free source code editor and notepad replacement.", url: "https://notepad-plus-plus.org/" },
+                { name: "STDU Converter", icon: "fa-solid fa-file-arrow-down", color: "text-amber-500", desc: "Convert digital documents effortlessly.", url: "https://www.stdutility.com/" }
+            ]
+        };
+
+        const macSoftwareData = JSON.parse(JSON.stringify(windowsSoftwareData));
+        macSoftwareData["System Optimization"][0] = { name: "CleanMyMac X", icon: "fa-solid fa-gem", color: "text-pink-500", desc: "All-in-one optimizer for macOS systems.", url: "https://macpaw.com/" };
+
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('liveClock').textContent = now.toLocaleDateString('en-US', options) + ' • Daily Verified';
+            document.getElementById('yearSpan').textContent = now.getFullYear();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // المتكلم الآلي للنطق بالإنجليزية
+        function speakAppName(text) {
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 1.0;
+                    utterance.lang = 'en-US';
+                    window.speechSynthesis.speak(utterance);
+                }
+            } catch (e) {}
+        }
+
+        let hasSpokenPrompt = false;
+        function speakPrompt(text) {
+            if (!hasSpokenPrompt) {
+                speakAppName(text);
+                hasSpokenPrompt = true;
+                setTimeout(() => { hasSpokenPrompt = false; }, 4000);
+            }
+        }
+
+        // رندر شبكة البرامج العمودية المقسمة على 8 أعمدة رائدة
+        function renderOSGrid(data, containerId, osName, categoryFilter = "ALL") {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            CATEGORIES.forEach((catName, colIndex) => {
+                // إذا تم تحديد تصنيف محدد من القائمة المنسدلة، نقوم بإخفاء الأعمدة الأخرى
+                if (categoryFilter !== "ALL" && catName !== categoryFilter) {
+                    return;
+                }
+
+                const columnDiv = document.createElement('div');
+                columnDiv.className = 'flex flex-col space-y-3 category-column';
+                columnDiv.dataset.category = catName;
+
+                const colHeader = document.createElement('div');
+                colHeader.className = 'bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-gray-200 dark:border-slate-700 text-center shadow-sm';
+                colHeader.innerHTML = `<span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block truncate">${catName}</span>`;
+                columnDiv.appendChild(colHeader);
+
+                const items = data[catName] || [];
+                items.forEach((sw, rowIndex) => {
+                    const tile = document.createElement('div');
+                    tile.dataset.os = osName;
+                    tile.dataset.name = sw.name.toLowerCase();
+                    tile.dataset.category = catName;
+                    // تم تكبير حجم المربع إلى h-36 وتوسيع الأيقونة والاسم داخله
+                    tile.className = 'software-tile relative bg-white dark:bg-slate-800/90 rounded-2xl p-4 border border-gray-200/80 dark:border-slate-700 shadow-3d-light dark:shadow-3d-dark hover:shadow-3d-hover group cursor-pointer flex flex-col items-center justify-center text-center h-36 space-y-3';
+
+                    let clickTimer = null;
+
+                    tile.onclick = (e) => {
+                        if (clickTimer) {
+                            clearTimeout(clickTimer);
+                            clickTimer = null;
+                            return;
+                        }
+                        clickTimer = setTimeout(() => {
+                            clickTimer = null;
+                            handleSingleClickDownload(sw.name, sw.url, tile);
+                        }, 250);
+                    };
+
+                    tile.ondblclick = (e) => {
+                        if (clickTimer) {
+                            clearTimeout(clickTimer);
+                            clickTimer = null;
+                        }
+                        window.open(sw.url, '_blank');
+                    };
+
+                    tile.innerHTML = `
+                        <div class="tooltip-box opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-md whitespace-nowrap z-30">
+                            Single Click: Download | Double Click: Open Page
+                        </div>
+                        <!-- الأيقونة بحجم كبير ملحوظ -->
+                        <div class="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-slate-700 flex items-center justify-center text-3xl ${sw.color} transition-transform group-hover:scale-110 shadow-sm">
+                            <i class="${sw.icon}"></i>
+                        </div>
+                        <!-- اسم البرنامج خط عريض وبحجم أكبر -->
+                        <h4 class="text-sm font-extrabold text-slate-900 dark:text-white truncate w-full px-1">${sw.name}</h4>
+                    `;
+
+                    columnDiv.appendChild(tile);
+                });
+
+                container.appendChild(columnDiv);
+            });
+        }
+
+        function handleSingleClickDownload(name, url, tile) {
+            speakAppName(name);
+            tile.classList.add('downloading-tile');
+            showToast(`Starting direct download for ${name}...`);
+
+            setTimeout(() => {
+                window.open(url, '_blank');
+                setTimeout(() => {
+                    tile.classList.remove('downloading-tile');
+                }, 2000);
+            }, 600);
+        }
+
+        // تصفية نتائج البحث بالاسم
+        const searchInput = document.getElementById('searchInput');
+        const searchCounter = document.getElementById('searchCounter');
+        const categorySelect = document.getElementById('categorySelect');
+
+        function filterSoftware() {
+            const query = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categorySelect.value;
+            const tiles = document.querySelectorAll('.software-tile');
+            let matchCount = 0;
+
+            tiles.forEach(tile => {
+                const matchesName = tile.dataset.name.includes(query);
+                const matchesCategory = selectedCategory === 'ALL' || tile.dataset.category === selectedCategory;
+
+                if (matchesName && matchesCategory) {
+                    tile.style.display = 'flex';
+                    matchCount++;
+                } else {
+                    tile.style.display = 'none';
+                }
+            });
+
+            searchCounter.textContent = (query || selectedCategory !== 'ALL') ? `Found ${matchCount} matching software application(s).` : '';
+        }
+
+        searchInput.addEventListener('input', filterSoftware);
+        categorySelect.addEventListener('change', (e) => {
+            filterSoftware();
+            const selectedText = e.target.options[e.target.selectedIndex].text;
+            showToast(`Filtered by category: ${selectedText}`);
+        });
+
+        // اختصار لوحة المفاتيح البحث
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // تبديل المظهر
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                showToast("Switched to Light Theme");
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                showToast("Switched to Ultra-Dark Theme");
+            }
+        });
+
+        function scrollToOS(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+        window.onload = function() {
+            renderOSGrid(windowsSoftwareData, 'windowsGrid', 'win');
+            renderOSGrid(macSoftwareData, 'macGrid', 'mac');
+        };
+    </script>
+</body>
+</html>
