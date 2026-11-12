@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PcControlSoft - 100% Virus-Free PC & Mac Software Directory (1024 Apps)</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        darkTile: '#1e293b',
+                        lightTile: '#ffffff',
+                    },
+                    boxShadow: {
+                        '3d-light': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+                        '3d-dark': '0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        '3d-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .software-tile {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+        .software-tile:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .downloading-tile {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .dark .downloading-tile {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+        }
+
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #facc15 transparent;
+            display: block;
+            width: 0;
+        }
+
+        #hud{position:fixed;z-index:9999;width:340px;pointer-events:none;perspective:900px;opacity:0;visibility:hidden;transition:opacity .15s}
+        #hud.on{opacity:1;visibility:visible}
+        .hud-panel{position:relative;min-height:200px;padding:14px 16px;border-radius:14px;overflow:hidden;background:linear-gradient(145deg,#050f1b,#0b2236);border:1px solid #22d3ee;box-shadow:0 25px 50px rgba(0,0,0,.6),0 0 30px rgba(34,211,238,.35),inset 0 0 25px rgba(34,211,238,.15);font:12px/1.75 ui-monospace,Consolas,monospace;color:#e2e8f0;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-style:preserve-3d}
+        #hud.on .hud-panel{animation:hudIn .55s cubic-bezier(.2,.8,.2,1)}
+        @keyframes hudIn{from{transform:rotateX(20deg) rotateY(-40deg) scale(.6) translateZ(-80px)}to{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1)}}
+        .hud-door{position:absolute;top:0;bottom:0;width:50.5%;z-index:3;background:repeating-linear-gradient(90deg,#0f2a40 0 7px,#14405f 7px 9px);transition:transform .6s cubic-bezier(.75,0,.2,1)}
+        .hud-door.l{left:0;border-right:2px solid #22d3ee}.hud-door.r{right:0;border-left:2px solid #22d3ee}
+        #hud.open .hud-door.l{transform:translateX(-102%)}#hud.open .hud-door.r{transform:translateX(102%)}
+        .hud-top{color:#22d3ee;font-size:10px;letter-spacing:.2em;margin-bottom:6px;opacity:.8}
+        .hud-line{white-space:pre;min-height:1.75em}
+        .hud-cur{display:inline-block;width:7px;height:13px;background:#22d3ee;vertical-align:-2px;animation:blink .6s steps(1) infinite}
+        @keyframes blink{50%{opacity:0}}
+        .t-k{color:#fb923c}.t-v{color:#38bdf8}.t-p{color:#e2e8f0}.t-n{color:#4ade80}
+        .w0{color:#facc15}.w1{color:#4ade80}.w2{color:#38bdf8}.w3{color:#f472b6}.w4{color:#fb923c}.w5{color:#a78bfa}
+
+        #ck{display:flex;align-items:center;gap:8px}
+        #ckSlot{position:relative;width:36px;height:64px;border-radius:10px;cursor:pointer;touch-action:none;outline:none;background:linear-gradient(#0b1220,#1e293b);box-shadow:inset 0 3px 7px #000,0 1px 0 #64748b}
+        #ckSlot:before{content:"";position:absolute;left:50%;top:7px;bottom:7px;width:4px;margin-left:-2px;border-radius:2px;background:#020617}
+        #ckLever{position:absolute;left:3px;bottom:4px;width:30px;height:24px;border-radius:7px;transition:bottom .35s cubic-bezier(.3,1.4,.5,1);background:linear-gradient(#a8b3c4,#5b6678 55%,#3a4455);box-shadow:0 3px 5px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.5);animation:ckR 2s infinite}
+        #ckLever:after{content:"";position:absolute;left:5px;right:5px;top:6px;height:12px;background:repeating-linear-gradient(#0006 0 2px,transparent 2px 4px);border-radius:2px}
+        #ck.on #ckLever{bottom:36px;animation-name:ckG}
+        #ckLock{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#0f172a;border:2px solid #475569;color:#ef4444;animation:ckLR 2s infinite}
+        #ck.on #ckLock{animation-name:ckLG}
+        @keyframes ckR{0%,49%{filter:drop-shadow(0 0 9px #ef4444);background:linear-gradient(#fca5a5,#dc2626 55%,#7f1d1d)}50%,100%{filter:none}}
+        @keyframes ckG{0%,49%{filter:drop-shadow(0 0 9px #22c55e);background:linear-gradient(#86efac,#16a34a 55%,#14532d)}50%,100%{filter:none}}
+        @keyframes ckLR{0%,49%{box-shadow:0 0 14px 4px #ef4444;border-color:#ef4444;color:#fecaca}50%,100%{box-shadow:none}}
+        @keyframes ckLG{0%,49%{box-shadow:0 0 14px 4px #22c55e;border-color:#22c55e;color:#bbf7d0}50%,100%{box-shadow:none;color:#22c55e}}
+        #ckOk{display:none;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;font:800 13px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;color:#052e16;cursor:pointer;background:linear-gradient(#86efac,#22c55e);border:2px solid #14532d;box-shadow:0 3px 0 #14532d,0 0 14px rgba(34,197,94,.6)}
+        #ckOk.show{display:inline-flex}#ckOk:active{transform:translateY(2px);box-shadow:0 1px 0 #14532d}
+        .software-tile.bulk-selected{background:#facc15!important;border-color:#eab308!important;box-shadow:0 0 24px rgba(250,204,21,.75)!important}
+        .software-tile.bulk-selected,.software-tile.bulk-selected *{color:#1f2937!important}
+        @media(max-width:640px){#ck{transform:scale(.8);transform-origin:right center}}
+
+        #ckInst{display:none;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;font:800 13px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;color:#082f49;cursor:pointer;background:linear-gradient(#7dd3fc,#0ea5e9);border:2px solid #075985;box-shadow:0 3px 0 #075985,0 0 14px rgba(14,165,233,.6)}
+        #ckInst.show{display:inline-flex}#ckInst:active{transform:translateY(2px);box-shadow:0 1px 0 #075985}
+
+        .software-tile.reco{position:relative}
+        .software-tile.reco:after{content:"\2605  Recommended";position:absolute;top:8px;right:8px;font-size:9px;font-weight:800;padding:2px 7px;border-radius:999px;background:#f59e0b;color:#1f2937}
+        #infoModal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,.7);padding:16px}
+        #infoModal.on{display:flex}
+        #infoModal .box{max-width:560px;max-height:80vh;overflow:auto;background:#0b1626;color:#e2e8f0;border:1px solid #22d3ee;border-radius:16px;padding:22px;font:14px/1.7 system-ui,sans-serif}
+        #infoModal h4{font-size:18px;font-weight:800;color:#facc15;margin-bottom:8px}#infoModal button.x{margin-top:14px;background:#22c55e;color:#052e16;font-weight:800;padding:8px 16px;border-radius:10px}
+
+        #lgBtn{width:42px;height:42px;border-radius:10px;font:800 14px ui-monospace,Consolas,monospace;color:#e0f2fe;background:#0b2236;border:2px solid #38bdf8;cursor:pointer;margin-right:8px;animation:lgBlink 1s infinite}
+        @keyframes lgBlink{0%,49%{box-shadow:0 0 14px 4px #38bdf8;background:#0c4a6e}50%,100%{box-shadow:none;background:#0b2236}}
+        #lgOv{position:fixed;inset:0;z-index:10002;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,.82);overflow:hidden}
+        #lgOv.on{display:flex}
+        #lgDoor{position:relative;width:min(92vw,600px);aspect-ratio:1/.92;transform:translateY(-130vh);transition:transform .9s linear;filter:drop-shadow(0 24px 48px rgba(0,0,0,.65)) drop-shadow(0 0 16px rgba(34,211,238,.22))}
+        #lgDoor.drop{transform:none}
+        #lgDoor .hx{position:absolute;clip-path:none}
+        .hx1{inset:0;border-radius:26px;background:linear-gradient(145deg,rgba(148,163,184,.75),rgba(34,211,238,.45) 45%,rgba(71,85,105,.8))}
+        .hx2{inset:1.2%;border-radius:22px;background:linear-gradient(160deg,#18212d,#0a0f16);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+        .hx3{inset:3.6%;border-radius:16px;background:radial-gradient(120% 90% at 50% 0%,#10243a,#05090f 70%);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(34,211,238,.18)}
+        #lgGrid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:3.2%;padding:6%}
+        .lt{display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;border:1px solid rgba(148,163,184,.35);background:rgba(15,32,52,.85);color:#94a3b8;cursor:pointer;transition:all .6s}
+        .lt b{font:800 clamp(14px,3.4vw,26px) ui-monospace,Consolas,monospace;letter-spacing:.1em}.lt small{font-size:clamp(8px,1.7vw,12px);opacity:.85}
+        .lt.lit{border-color:var(--c);box-shadow:0 0 22px var(--c);color:var(--c);background:rgba(255,255,255,.1)}
+        .lf{position:absolute;top:0;bottom:0;width:50.5%;z-index:3;transition:transform 1s linear,box-shadow .4s;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(180deg,#1d2634,#0e141d);background-size:100% 25%,100% 100%}
+        .lf.l{left:0;box-shadow:inset -2px 0 0 #22d3ee,inset 0 0 28px rgba(0,0,0,.7)}
+        .lf.r{right:0;box-shadow:inset 2px 0 0 #22d3ee,inset 0 0 28px rgba(0,0,0,.7)}
+        #lgDoor.unlock .lf.l{box-shadow:inset -2px 0 0 #4ade80,inset 0 0 28px rgba(0,0,0,.7)}
+        #lgDoor.unlock .lf.r{box-shadow:inset 2px 0 0 #4ade80,inset 0 0 28px rgba(0,0,0,.7)}
+        #lgDoor.open .lf.l{transform:translateX(-101%)}#lgDoor.open .lf.r{transform:translateX(101%)}
+        .hub{position:absolute;left:50%;top:50%;width:24%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);z-index:5;background:conic-gradient(#334155,#94a3b8,#334155,#94a3b8,#334155);transition:transform .6s,opacity .3s;box-shadow:0 0 0 3px #0a0f16,0 0 22px rgba(34,211,238,.35)}
+        .hub:after{content:"";position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,#0e1722,#05090f);box-shadow:inset 0 0 0 2px rgba(34,211,238,.6)}
+        .hub:before{content:"";position:absolute;left:50%;top:6%;width:4%;height:16%;background:#22d3ee;transform:translateX(-50%);z-index:1;border-radius:2px}
+        #lgDoor.unlock .hub{transform:translate(-50%,-50%) rotate(90deg)}#lgDoor.open .hub{opacity:0}
+        .bolt{position:absolute;left:50%;width:14%;height:5%;border-radius:3px;z-index:6;background:linear-gradient(#e2e8f0,#64748b);transform:translate(-50%,0);transition:transform .45s;box-shadow:0 0 8px rgba(34,211,238,.4)}.bolt.bt{top:0}.bolt.bb{bottom:0}
+        #lgDoor.unlock .bt{transform:translate(-50%,-130%)}#lgDoor.unlock .bb{transform:translate(-50%,130%)}
+        #lgX{position:fixed;top:14px;right:18px;font-size:30px;color:#e2e8f0;background:none;border:0;cursor:pointer;z-index:2}
+        #lgCap{position:fixed;left:0;right:0;bottom:18px;text-align:center;color:#7dd3fc;font:700 13px ui-monospace,Consolas,monospace;letter-spacing:.2em}
+
+        #qBtn{width:42px;height:42px;border-radius:10px;font:800 20px ui-monospace,Consolas,monospace;color:#fef9c3;background:#2a2105;border:2px solid #facc15;cursor:pointer;margin-right:8px;animation:qBlink 1s infinite}
+        @keyframes qBlink{0%,49%{box-shadow:0 0 14px 4px #facc15;background:#713f12}50%,100%{box-shadow:none;background:#2a2105}}
+        #hlpWin{position:fixed;left:50%;top:50%;z-index:10003;display:none;flex-direction:column;align-items:center;width:110px;height:min(80vh,600px);padding:16px;border-radius:18px;overflow:hidden;cursor:pointer;background:linear-gradient(160deg,#0b2236,#050b14);border:2px solid #facc15;box-shadow:0 0 30px rgba(250,204,21,.45),0 25px 60px rgba(0,0,0,.6);transform:translate(calc(-50vw - 100%),-50%);transition:transform .9s linear,width .6s linear}
+        #hlpWin.reset{transition:none}
+        #hlpWin.in{transform:translate(-50%,-50%)}
+        #hlpWin.out{transform:translate(50vw,-50%)}
+        #hlpWin.open{width:min(92vw,560px)}
+        .hw-in{opacity:0;transition:opacity .4s;width:100%;display:flex;flex-direction:column;align-items:center;flex:1;min-height:0}
+        #hlpWin.open .hw-in{opacity:1}
+        #hwAv{width:120px;height:120px;flex:none}
+        .hw-t{margin-top:10px;overflow:auto;width:100%;flex:1;font:14px/1.7 system-ui,sans-serif;color:#cbd5e1;text-align:left}
+        .hs{padding:2px 8px;border-radius:6px;transition:background .3s}.hs.h{font-weight:800;color:#facc15;margin-top:8px}.hs.cur{background:rgba(250,204,21,.18);color:#fff}
+        .hw-h{font:700 10px ui-monospace,Consolas,monospace;letter-spacing:.15em;color:#64748b;margin-top:6px}
+        #hwMouth{transform-origin:60px 80px}.talk #hwMouth{animation:hwM .28s infinite alternate}@keyframes hwM{from{transform:scaleY(1)}to{transform:scaleY(3.4)}}
+        .hwEye{transform-box:fill-box;transform-origin:center;animation:hwB 4s infinite}@keyframes hwB{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+
+        /* HIS BUTTON & BOOK SELECTOR OVERLAY */
+        #hisBtn{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:10px;font:800 14px ui-monospace,Consolas,monospace;color:#fde7c8;background:#3b2314;border:2px solid #b45309;cursor:pointer;animation:hisBlink 1s infinite}
+        @keyframes hisBlink{0%,49%{box-shadow:0 0 14px 4px #b45309;background:#78350f}50%,100%{box-shadow:none;background:#3b2314}}
+        @media(max-width:700px){#hisBtn{left:6px;width:36px;height:36px;font-size:12px}}
+
+        #hisPickOv{position:fixed;inset:0;z-index:10004;display:none;align-items:flex-end;justify-content:center;background:rgba(2,6,23,.84);backdrop-filter:blur(5px);padding-bottom:6vh;opacity:0;transition:opacity .45s ease}
+        #hisPickOv.on{opacity:1}
+        .his-books-wrap{display:flex;gap:34px;align-items:center;justify-content:center;flex-wrap:wrap;max-width:94vw;transform:translateY(115vh);transition:transform .85s cubic-bezier(.22,1,.36,1)}
+        #hisPickOv.up .his-books-wrap{transform:translateY(0)}
+        .his-book{position:relative;width:min(42vw,285px);aspect-ratio:3/4.25;border-radius:6px 18px 18px 6px;overflow:hidden;cursor:pointer;border:3px solid #d97706;box-shadow:-12px 18px 38px rgba(0,0,0,.85),inset 10px 0 18px rgba(0,0,0,.55),0 0 28px rgba(217,119,6,.3);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s;background:#29170b}
+        .his-book:before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;z-index:4;background:linear-gradient(90deg,rgba(0,0,0,.7),rgba(255,255,255,.18) 45%,rgba(0,0,0,.5))}
+        .his-book:hover{transform:translateY(-14px) scale(1.04);border-color:#facc15;box-shadow:-14px 28px 48px rgba(0,0,0,.95),0 0 42px rgba(250,204,21,.65)}
+        .his-book img{width:100%;height:100%;object-fit:cover;display:block}
+        .his-book-tag{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(15,10,6,.88);border:1px solid #f59e0b;color:#fef3c7;padding:4px 14px;border-radius:999px;font:800 11px ui-monospace,Consolas,monospace;letter-spacing:.12em;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.6)}
+        @media(max-width:600px){.his-books-wrap{gap:16px}.his-book{width:43vw}}
+
+        #hisWin{position:fixed;left:50%;bottom:0;z-index:10005;display:none;width:min(96vw,860px);height:min(80vh,580px);transform:translate(-50%,110%);transition:transform .9s linear,opacity .9s linear;cursor:pointer;border-radius:22px 22px 0 0;overflow:hidden;background:linear-gradient(165deg,#2a1b10,#0f0a06);border:2px solid #b45309;border-bottom:0;box-shadow:0 -10px 60px rgba(180,83,9,.35)}
+        #hisWin.reset{transition:none}#hisWin.up{transform:translate(-50%,0)}#hisWin.fade{opacity:0}
+        .his-g{display:grid;grid-template-columns:34% 66%;height:100%}
+        .his-k{display:flex;align-items:flex-end;justify-content:center;padding:14px 8px}.his-k img{max-width:100%;max-height:82%;animation:hisF 5s ease-in-out infinite}
+        @keyframes hisF{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .his-w{display:flex;align-items:center;justify-content:center;padding:10px 10px 20px 0}
+        .his-s{position:relative;height:100%;aspect-ratio:538/696;max-width:100%;transform:scaleY(.06);opacity:0;transition:transform 1s linear,opacity .25s}
+        #hisWin.unroll .his-s{transform:none;opacity:1}
+        .his-s>img{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 14px rgba(0,0,0,.55))}
+        .his-t{position:absolute;left:12%;right:12%;top:17%;bottom:24%;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent)}
+        .his-i{position:absolute;left:0;right:0;top:0;direction:rtl;text-align:center;will-change:transform;font:600 14.5px/2 Tahoma,"Segoe UI",system-ui,sans-serif;color:#4a2c12}
+        .his-i.en-mode{direction:ltr;text-align:left;font:600 13.5px/1.85 "Inter","Segoe UI",system-ui,sans-serif}
+        .his-i h4{color:#7c2d12;font-size:17px;font-weight:800;margin:16px 0 4px}.his-i p{margin:0 0 10px}
+        .his-i.en-mode h4{font-size:15.5px;text-align:center}
+        #hisSnow{position:absolute;inset:0;pointer-events:none;z-index:5}
+        .his-h{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:700 10px ui-monospace,Consolas,monospace;letter-spacing:.15em;color:#a16207;z-index:6}
+        @media(max-width:640px){.his-g{grid-template-columns:1fr;grid-template-rows:28% 72%}.his-k{padding:6px}.his-k img{max-height:100%}.his-w{padding:0 8px 18px}}
+    </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- HEADER BAR -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <div class="flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 text-xs sm:text-sm font-semibold shadow-sm">
+                <i class="fa-solid fa-shield-halved text-emerald-600 dark:text-emerald-400 text-base animate-pulse"></i>
+                <span class="hidden md:inline">100% Virus-Free & Verified (1024 Software)</span>
+            </div>
+
+            <div class="text-center flex flex-col items-center">
+                <div class="flex items-center space-x-2">
+                    <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                        PcControl<span class="text-emerald-600 dark:text-emerald-400">Soft</span>
+                    </h1>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:block">
+                    Single Click: Open Official Page & Pronounce Name
+                </p>
+                <div id="liveClock" class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
+                    Loading Date...
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="lgBtn" type="button" title="Voice language">EN</button><button id="qBtn" type="button" title="Help: how this site works">?</button><div id="ck" title="Bulk install / download lever"><div id="ckSlot" tabindex="0" role="switch" aria-checked="false" aria-label="Bulk mode lever"><div id="ckLever"></div></div><div id="ckLock"><i id="ckLockIc" class="fa-solid fa-lock"></i></div><button id="ckOk" type="button"><i class="fa-solid fa-lock-open"></i> OK <b id="ckCount">0</b></button><button id="ckInst" type="button" title="Direct Install: download one installer file that installs all selected programs"><i class="fa-solid fa-download"></i> DIRECT INSTALL <b id="ckInstN">0</b></button></div>
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition shadow-inner" title="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-chess-knight text-xl transform hover:rotate-12 transition-transform"></i>
+                </button>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-chess-knight text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- OS NAVIGATION BAR -->
+    <nav class="bg-gray-100 dark:bg-slate-800/60 border-b border-gray-200 dark:border-slate-700 py-2.5 sticky top-20 z-30 backdrop-blur-sm">
+            <button id="hisBtn" type="button" title="Our story">HIS</button>
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-4 sm:space-x-8 text-sm font-medium">
+            <button onclick="scrollToOS('windowsSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-windows text-blue-500 text-lg"></i>
+                <span>Windows OS (1024 Apps)</span>
+            </button>
+            <button onclick="scrollToOS('macSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200">
+                <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-lg"></i>
+                <span>macOS (1024 Apps)</span>
+            </button>
+            <button onclick="scrollToOS('discountsSection')" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/40 text-amber-600 dark:text-amber-400 font-bold transition">
+                <i class="fa-solid fa-tags text-lg"></i>
+                <span>Exclusive Discounts</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- SEARCH & CATEGORIES DROPDOWN FILTER SECTION -->
+        <section class="max-w-3xl mx-auto mb-10 text-center space-y-4">
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="relative flex-1 w-full">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                    <input type="text" id="searchInput" placeholder="Search software... (Press Ctrl+K)" 
+                        class="w-full pl-12 pr-12 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 shadow-lg text-sm sm:text-base transition">
+                    <kbd class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-semibold text-gray-500 bg-gray-100 border border-gray-300 rounded-md dark:bg-slate-700 dark:text-gray-300">Ctrl K</kbd>
+                </div>
+
+                <div class="relative w-full sm:w-72">
+                    <select id="categorySelect" onfocus="window.__catPrompt?window.__catPrompt():speakPrompt('Choose the type of software that suits you')" class="w-full py-3.5 px-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-emerald-500/80 text-slate-900 dark:text-white font-bold text-sm focus:outline-none shadow-lg cursor-pointer transition">
+                        <option value="ALL">Categories (All 64 Types - 1024 Apps)</option>
+                        
+                        <optgroup label="── Block 1: Essential & Everyday Suite ──">
+                            <option value="Web Browsers">1. Web Browsers</option>
+                            <option value="Antivirus & Security">2. Antivirus & Security</option>
+                            <option value="Media Players">3. Media Players</option>
+                            <option value="Compression Tools">4. Compression Tools</option>
+                            <option value="Communication">5. Communication & Chat</option>
+                            <option value="Office Suites">6. Office Suites & Productivity</option>
+                            <option value="PDF & Document Readers">7. PDF & Document Readers</option>
+                            <option value="System Optimization">8. System Optimization</option>
+                            <option value="Image Editors">9. Image Editors & Viewers</option>
+                            <option value="Cloud Storage">10. Cloud Storage & Sync</option>
+                            <option value="Audio Production">11. Audio Production</option>
+                            <option value="Video Editing">12. Video Editing & FX</option>
+                            <option value="Torrent & Downloaders">13. Torrent & Downloaders</option>
+                            <option value="Password Managers">14. Password Managers</option>
+                            <option value="Disk & Backup">15. Disk & Backup Tools</option>
+                            <option value="Gaming Utilities">16. Gaming Utilities</option>
+                            <option value="Education & E-Learning">17. Education & E-Learning</option>
+                            <option value="Project Management">18. Project Management</option>
+                            <option value="Graphic Assets & Fonts">19. Graphic Assets & Fonts</option>
+                            <option value="Remote Desktop">20. Remote Desktop & Control</option>
+                            <option value="E-Book & Publishing">21. E-Book & Publishing</option>
+                            <option value="Screen Recording">22. Screen Recording & Streaming</option>
+                            <option value="File Managers">23. Advanced File Managers</option>
+                            <option value="Text Editors & IDEs">24. Text Editors & Light IDEs</option>
+                            <option value="Financial & Accounting">25. Financial & Accounting</option>
+                            <option value="Note Taking & Wiki">26. Note Taking & Wiki</option>
+                            <option value="Vector Illustration">27. Vector Illustration</option>
+                            <option value="Clipboard Managers">28. Clipboard Managers</option>
+                            <option value="Uninstaller Tools">29. Advanced Uninstallers</option>
+                            <option value="Subtitles & Transcripts">30. Subtitles & Transcripts</option>
+                            <option value="Disk Cleaners">31. Deep Disk Cleaners</option>
+                            <option value="Calendar & Timers">32. Calendar & Timers</option>
+                        </optgroup>
+
+                        <optgroup label="── Block 2: Robotics, AI & Dev Suite ──">
+                            <option value="AI & Machine Learning">33. AI & Machine Learning</option>
+                            <option value="Robotics & Arduino">34. Robotics & Microcontrollers</option>
+                            <option value="Developer Tools">35. Full Developer Tools</option>
+                            <option value="Web Development">36. Web Development & Servers</option>
+                            <option value="3D & Graphics">37. 3D Modeling & CAD</option>
+                            <option value="Hardware Benchmarks">38. Hardware Benchmarks</option>
+                            <option value="Network Tools">39. Network Tools & Diagnostics</option>
+                            <option value="File Recovery">40. File Recovery & Rescue</option>
+                            <option value="Virtualization">41. Virtualization & OS</option>
+                            <option value="Database Tools">42. Database Management</option>
+                            <option value="API & Testing">43. API Testing & Postman</option>
+                            <option value="Git & Version Control">44. Git & Version Control</option>
+                            <option value="Game Engines">45. Game Engines & Dev</option>
+                            <option value="Terminal & SSH">46. Terminal & SSH Clients</option>
+                            <option value="Circuit Simulation">47. Circuit Simulation & PCB</option>
+                            <option value="IoT & Automation">48. IoT & Home Automation</option>
+                            <option value="Hex Editors">49. Hex & Binary Editors</option>
+                            <option value="Docker & Containers">50. Containers & Kubernetes</option>
+                            <option value="Log & Analytics">51. Log Analyzers & Monitoring</option>
+                            <option value="Math & Symbolic">52. Mathematics & MATLAB</option>
+                            <option value="ASCI & Terminal Art">53. ASCII & Terminal Tools</option>
+                            <option value="Serial & COM Port">54. Serial & COM Port Monitors</option>
+                            <option value="Font Editors">55. Font Editors & Design</option>
+                            <option value="Color Pickers">56. Color Pickers & Palettes</option>
+                            <option value="Benchmark Stress">57. CPU/GPU Stress Testers</option>
+                            <option value="File Splitters">58. File Splitters & Joiners</option>
+                            <option value="Checksum & Hash">59. Checksum & Hash Verifiers</option>
+                            <option value="ISO & Image Burners">60. ISO & Bootable USB Tools</option>
+                            <option value="Markdown Editors">61. Markdown & Docs Writers</option>
+                            <option value="Diagram & Flowchart">62. Diagramming & Flowcharts</option>
+                            <option value="Icon Designers">63. Icon & Favicon Designers</option>
+                            <option value="System Monitor Overlay">64. System Hardware Overlays</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div id="searchCounter" class="text-xs text-gray-500 dark:text-gray-400 h-4"></div>
+        </section>
+
+        <!-- WINDOWS SOFTWARE SECTION -->
+        <section id="windowsSection" class="mb-14 space-y-10">
+            <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-windows text-blue-500 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Windows Directory (1024 Applications)</h2>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 rounded-full">Windows 10 / 11</span>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 mb-3 uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Block 1: Essential & Everyday Apps (512 Apps)</span>
+                </h3>
+                <div id="winBlock1" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+
+            <div class="pt-6">
+                <h3 class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 mb-3 uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>Block 2: Robotics, AI & Engineering Apps (512 Apps)</span>
+                </h3>
+                <div id="winBlock2" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+        </section>
+
+        <!-- MACOS SOFTWARE SECTION -->
+        <section id="macSection" class="mb-14 space-y-10">
+            <div class="flex items-center justify-between border-b border-gray-300 dark:border-slate-700 pb-3">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-brands fa-apple text-slate-800 dark:text-slate-100 text-2xl sm:text-3xl"></i>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">macOS Directory (1024 Applications)</h2>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 rounded-full">Apple Silicon & Intel</span>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 mb-3 uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Block 1: Essential & Everyday Apps (512 Apps)</span>
+                </h3>
+                <div id="macBlock1" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+
+            <div class="pt-6">
+                <h3 class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 mb-3 uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>Block 2: Robotics, AI & Engineering Apps (512 Apps)</span>
+                </h3>
+                <div id="macBlock2" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4"></div>
+            </div>
+        </section>
+
+        <!-- DISCOUNTS SECTION -->
+        <section id="discountsSection" class="mb-12 bg-gradient-to-r from-amber-500 via-orange-500 to-emerald-600 rounded-3xl p-6 sm:p-8 text-white shadow-2xl">
+            <div class="space-y-2 mb-6 text-center md:text-left">
+                <div class="inline-flex items-center space-x-2 bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-star text-yellow-300"></i><span>Recommended paid tools</span></div>
+                <h3 class="text-2xl sm:text-3xl font-black">Premium Software Worth Considering</h3>
+                <p class="text-sm text-amber-100 max-w-2xl">Free programs above always link to their official download pages. The paid tools below are optional. <button type="button" onclick="openInfo('disclosure')" class="underline font-bold">Affiliate disclosure</button></p>
+            </div>
+            <div id="dealsGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-8 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; <span id="yearSpan"></span> <strong>PcControlSoft</strong>. Developed by <span class="text-emerald-600 dark:text-emerald-400 font-bold">ABDELKARIM LAITAR</span>.</p>
+            <p class="mt-3 space-x-4"><button type="button" onclick="openInfo('disclosure')" class="underline hover:text-emerald-500">Affiliate Disclosure</button><button type="button" onclick="openInfo('privacy')" class="underline hover:text-emerald-500">Privacy Policy</button><button type="button" onclick="openInfo('contact')" class="underline hover:text-emerald-500">Contact</button></p>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white dark:bg-emerald-600 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMsg">Action completed!</span>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        const BLOCK1_CATEGORIES = [
+            "Web Browsers", "Antivirus & Security", "Media Players", "Compression Tools", 
+            "Communication", "Office Suites", "PDF & Document Readers", "System Optimization",
+            "Image Editors", "Cloud Storage", "Audio Production", "Video Editing",
+            "Torrent & Downloaders", "Password Managers", "Disk & Backup", "Gaming Utilities",
+            "Education & E-Learning", "Project Management", "Graphic Assets & Fonts", "Remote Desktop",
+            "E-Book & Publishing", "Screen Recording", "File Managers", "Text Editors & IDEs",
+            "Financial & Accounting", "Note Taking & Wiki", "Vector Illustration", "Clipboard Managers",
+            "Uninstaller Tools", "Subtitles & Transcripts", "Disk Cleaners", "Calendar & Timers"
+        ];
+
+        const BLOCK2_CATEGORIES = [
+            "AI & Machine Learning", "Robotics & Arduino", "Developer Tools", "Web Development",
+            "3D & Graphics", "Hardware Benchmarks", "Network Tools", "File Recovery",
+            "Virtualization", "Database Tools", "API & Testing", "Git & Version Control",
+            "Game Engines", "Terminal & SSH", "Circuit Simulation", "IoT & Automation",
+            "Hex Editors", "Docker & Containers", "Log & Analytics", "Math & Symbolic",
+            "ASCI & Terminal Art", "Serial & COM Port", "Font Editors", "Color Pickers",
+            "Benchmark Stress", "File Splitters", "Checksum & Hash", "ISO & Image Burners",
+            "Markdown Editors", "Diagram & Flowchart", "Icon Designers", "System Monitor Overlay"
+        ];
+
+        const ALL_CATEGORIES = [...BLOCK1_CATEGORIES, ...BLOCK2_CATEGORIES];
+
+        const rawSoftwareData = {
+            "Web Browsers": [
+                { name: "Google Chrome", icon: "fa-brands fa-chrome", color: "text-red-500", url: "https://www.google.com/chrome/" },
+                { name: "Mozilla Firefox", icon: "fa-brands fa-firefox-browser", color: "text-orange-500", url: "https://www.mozilla.org/firefox/" },
+                { name: "Microsoft Edge", icon: "fa-brands fa-edge", color: "text-blue-500", url: "https://www.microsoft.com/edge" },
+                { name: "Brave Browser", icon: "fa-brands fa-brave", color: "text-amber-600", url: "https://brave.com/" },
+                { name: "Opera FX", icon: "fa-brands fa-opera", color: "text-red-600", url: "https://www.opera.com/" },
+                { name: "Vivaldi", icon: "fa-solid fa-compass", color: "text-rose-500", url: "https://vivaldi.com/" },
+                { name: "Tor Browser", icon: "fa-solid fa-user-ninja", color: "text-purple-600", url: "https://www.torproject.org/" },
+                { name: "Waterfox", icon: "fa-solid fa-water", color: "text-cyan-500", url: "https://www.waterfox.net/" },
+                { name: "LibreWolf", icon: "fa-solid fa-wolf-pack-battalion", color: "text-slate-600", url: "https://librewolf.net/" },
+                { name: "Thorium", icon: "fa-solid fa-atom", color: "text-emerald-600", url: "https://thorium.rocks/" },
+                { name: "Maxthon", icon: "fa-solid fa-m", color: "text-indigo-500", url: "https://www.maxthon.com/" },
+                { name: "Ghost Browser", icon: "fa-solid fa-ghost", color: "text-purple-500", url: "https://ghostbrowser.com/" },
+                { name: "Epic Browser", icon: "fa-solid fa-shield-halved", color: "text-blue-400", url: "https://www.epicbrowser.com/" },
+                { name: "Cent Browser", icon: "fa-solid fa-circle-notch", color: "text-red-400", url: "https://www.centbrowser.com/" },
+                { name: "Zen Browser", icon: "fa-solid fa-globe", color: "text-indigo-500", url: "https://zen-browser.app/" },
+                { name: "Arc Browser", icon: "fa-solid fa-compass", color: "text-pink-500", url: "https://arc.net/" }
+            ],
+            "Antivirus & Security": [
+                { name: "Malwarebytes", icon: "fa-solid fa-shield-virus", color: "text-blue-600", url: "https://www.malwarebytes.com/" },
+                { name: "Bitdefender Free", icon: "fa-solid fa-shield-cat", color: "text-red-600", url: "https://www.bitdefender.com/" },
+                { name: "Avast Security", icon: "fa-solid fa-shield", color: "text-orange-500", url: "https://www.avast.com/" },
+                { name: "AVG AntiVirus", icon: "fa-solid fa-user-shield", color: "text-emerald-500", url: "https://www.avg.com/" },
+                { name: "Avira Free", icon: "fa-solid fa-umbrella", color: "text-red-500", url: "https://www.avira.com/" },
+                { name: "Emsisoft Kit", icon: "fa-solid fa-bug-slash", color: "text-blue-500", url: "https://www.emsisoft.com/" },
+                { name: "Spybot Search", icon: "fa-solid fa-user-secret", color: "text-sky-600", url: "https://www.safer-networking.org/" },
+                { name: "GlassWire", icon: "fa-solid fa-chart-line", color: "text-violet-500", url: "https://www.glasswire.com/" },
+                { name: "Norton Power", icon: "fa-solid fa-bolt-lightning", color: "text-yellow-500", url: "https://support.norton.com/" },
+                { name: "AdwCleaner", icon: "fa-solid fa-broom", color: "text-blue-500", url: "https://www.malwarebytes.com/adwcleaner" },
+                { name: "Sophos Home", icon: "fa-solid fa-house-laptop", color: "text-indigo-600", url: "https://home.sophos.com/" },
+                { name: "ZoneAlarm", icon: "fa-solid fa-fire-shield", color: "text-red-700", url: "https://www.zonealarm.com/" },
+                { name: "ClamWin", icon: "fa-solid fa-worm", color: "text-green-600", url: "https://www.clamwin.com/" },
+                { name: "Comodo Firewall", icon: "fa-solid fa-network-wired", color: "text-blue-700", url: "https://www.comodo.com/" },
+                { name: "HitmanPro", icon: "fa-solid fa-crosshairs", color: "text-amber-700", url: "https://www.hitmanpro.com/" },
+                { name: "Trend Micro", icon: "fa-solid fa-shield-halved", color: "text-red-500", url: "https://www.trendmicro.com/" }
+            ],
+            "AI & Machine Learning": [
+                { name: "Ollama Desktop", icon: "fa-solid fa-brain", color: "text-slate-800 dark:text-slate-100", url: "https://ollama.com/" },
+                { name: "LM Studio", icon: "fa-solid fa-robot", color: "text-indigo-500", url: "https://lmstudio.ai/" },
+                { name: "Jan AI", icon: "fa-solid fa-microchip", color: "text-emerald-500", url: "https://jan.ai/" },
+                { name: "Pinokio AI", icon: "fa-solid fa-wand-magic-sparkles", color: "text-amber-500", url: "https://pinokio.computer/" },
+                { name: "GPT4All", icon: "fa-solid fa-comments", color: "text-blue-500", url: "https://gpt4all.io/" },
+                { name: "AnythingLLM", icon: "fa-solid fa-box-archive", color: "text-purple-600", url: "https://anythingllm.com/" },
+                { name: "InvokeAI", icon: "fa-solid fa-palette", color: "text-pink-500", url: "https://invoke-ai.com/" },
+                { name: "Fooocus AI", icon: "fa-solid fa-camera", color: "text-rose-500", url: "https://github.com/lllyasviel/Fooocus" },
+                { name: "ComfyUI", icon: "fa-solid fa-diagram-project", color: "text-orange-500", url: "https://github.com/comfyanonymous/ComfyUI" },
+                { name: "LocalAI Studio", icon: "fa-solid fa-server", color: "text-cyan-500", url: "https://localai.io/" },
+                { name: "OpenWebUI", icon: "fa-solid fa-desktop", color: "text-teal-600", url: "https://openwebui.com/" },
+                { name: "TextGen WebUI", icon: "fa-solid fa-font", color: "text-blue-600", url: "https://github.com/oobabooga/text-generation-webui" },
+                { name: "Whisper Desktop", icon: "fa-solid fa-headphones", color: "text-green-500", url: "https://openai.com/research/whisper" },
+                { name: "KoboldCPP", icon: "fa-solid fa-book", color: "text-red-500", url: "https://github.com/LostRuins/koboldcpp" },
+                { name: "Faraday AI", icon: "fa-solid fa-bolt", color: "text-amber-400", url: "https://faraday.dev/" },
+                { name: "Backyard AI", icon: "fa-solid fa-house", color: "text-indigo-400", url: "https://backyard.ai/" }
+            ],
+            "Robotics & Arduino": [
+                { name: "Arduino IDE", icon: "fa-solid fa-microchip", color: "text-teal-600", url: "https://www.arduino.cc/" },
+                { name: "Fritzing Circuit", icon: "fa-solid fa-draw-polygon", color: "text-blue-500", url: "https://fritzing.org/" },
+                { name: "PlatformIO", icon: "fa-solid fa-code", color: "text-amber-600", url: "https://platformio.org/" },
+                { name: "ROS Noetic", icon: "fa-solid fa-robot", color: "text-slate-800", url: "https://www.ros.org/" },
+                { name: "CoppeliaSim", icon: "fa-solid fa-cubes", color: "text-indigo-600", url: "https://www.coppeliarobotics.com/" },
+                { name: "Gazebo Sim", icon: "fa-solid fa-fire", color: "text-orange-500", url: "https://gazebosim.org/" },
+                { name: "Webots Robot", icon: "fa-solid fa-gears", color: "text-red-500", url: "https://cyberbotics.com/" },
+                { name: "STM32CubeIDE", icon: "fa-solid fa-memory", color: "text-blue-700", url: "https://www.st.com/" },
+                { name: "LabVIEW Studio", icon: "fa-solid fa-wave-square", color: "text-yellow-500", url: "https://www.ni.com/" },
+                { name: "Proteus PCB", icon: "fa-solid fa-bolt", color: "text-purple-600", url: "https://www.labcenter.com/" },
+                { name: "Tinkercad Circuits", icon: "fa-solid fa-lightbulb", color: "text-emerald-500", url: "https://www.tinkercad.com/" },
+                { name: "EasyEDA", icon: "fa-solid fa-pen-nib", color: "text-cyan-600", url: "https://easyeda.com/" },
+                { name: "KiCad EDA", icon: "fa-solid fa-layer-group", color: "text-rose-600", url: "https://www.kicad.org/" },
+                { name: "Processing IDE", icon: "fa-solid fa-terminal", color: "text-blue-400", url: "https://processing.org/" },
+                { name: "Node-RED IoT", icon: "fa-solid fa-network-wired", color: "text-red-600", url: "https://nodered.org/" },
+                { name: "Espressif IDF", icon: "fa-solid fa-wifi", color: "text-indigo-500", url: "https://www.espressif.com/" }
+            ]
+        };
+
+
+const REAL = {
+"Media Players":"VLC|videolan.org;PotPlayer|potplayer.daum.net|w;mpv|mpv.io;Kodi|kodi.tv;Plex|plex.tv;Jellyfin|jellyfin.org;IINA|iina.io|m;foobar2000|foobar2000.org|w;MediaMonkey|mediamonkey.com|w;Winamp|winamp.com|w;AIMP|aimp.ru|w;MusicBee|getmusicbee.com|w;Elmedia Player|elmedia-video-player.com|m;Infuse|firecore.com/infuse|m;Clementine|clementine-player.org;SMPlayer|smplayer.info",
+"Compression Tools":"7-Zip|7-zip.org|w;WinRAR|win-rar.com|w;PeaZip|peazip.github.io;Bandizip|bandisoft.com;WinZip|winzip.com;The Unarchiver|theunarchiver.com|m;Keka|keka.io|m;B1 Free Archiver|b1.org;BetterZip|macitbetter.com|m;Archiver|archiverapp.com|m;IZArc|izarc.org|w;ZipGenius|zipgenius.it|w;Hamster Zip Archiver|hamstersoft.com|w;ExtractNow|extractnow.com|w",
+"Communication":"Discord|discord.com;Telegram|telegram.org;Signal|signal.org;Slack|slack.com;Zoom|zoom.us;WhatsApp|whatsapp.com;Element|element.io;Thunderbird|thunderbird.net;Viber|viber.com;LINE|line.me;WeChat|wechat.com;Mattermost|mattermost.com;Rocket.Chat|rocket.chat;Skype|skype.com;Webex|webex.com;Zulip|zulip.com",
+"Office Suites":"LibreOffice|libreoffice.org;ONLYOFFICE|onlyoffice.com;WPS Office|wps.com;Microsoft 365|microsoft.com/microsoft-365;FreeOffice|freeoffice.com;Apache OpenOffice|openoffice.org;Calligra|calligra.org;Google Docs|docs.google.com;SoftMaker Office|softmaker.com;Collabora Office|collaboraoffice.com;Polaris Office|polarisoffice.com;Pages|apple.com/pages|m;Numbers|apple.com/numbers|m;Keynote|apple.com/keynote|m",
+"PDF & Document Readers":"Adobe Acrobat Reader|adobe.com/acrobat/pdf-reader.html;SumatraPDF|sumatrapdfreader.org|w;Foxit Reader|foxit.com;PDF-XChange Editor|tracker-software.com|w;Okular|okular.kde.org;Xodo|xodo.com;Sejda Desktop|sejda.com;Nitro PDF|gonitro.com|w;PDF Expert|pdfexpert.com|m;Master PDF Editor|code-industry.net;MuPDF|mupdf.com;PDFgear|pdfgear.com;Zathura|pwmt.org/projects/zathura;Adobe Acrobat Pro|adobe.com/acrobat.html;PDF24 Creator|pdf24.org|w",
+"Image Editors":"GIMP|gimp.org;Paint.NET|getpaint.net|w;Krita|krita.org;IrfanView|irfanview.com|w;XnView MP|xnview.com;Pixelmator Pro|pixelmator.com|m;Darktable|darktable.org;Adobe Photoshop|adobe.com/products/photoshop.html;Pinta|pinta-project.com;Affinity Photo|affinity.serif.com/photo;Luminar Neo|skylum.com/luminar;Capture One|captureone.com;ACDSee|acdsee.com;Adobe Lightroom|adobe.com/products/photoshop-lightroom.html;digiKam|digikam.org;Photopea|photopea.com",
+"Cloud Storage":"Dropbox|dropbox.com;Google Drive|google.com/drive;MEGA|mega.io;pCloud|pcloud.com;Proton Drive|proton.me/drive;Nextcloud|nextcloud.com;Syncthing|syncthing.net;Box|box.com;OneDrive|microsoft.com/microsoft-365/onedrive/online-cloud-storage;iCloud|icloud.com;Icedrive|icedrive.net;Tresorit|tresorit.com;Koofr|koofr.eu;Filen|filen.io;Cryptomator|cryptomator.org;Seafile|seafile.com",
+"Audio Production":"Audacity|audacityteam.org;REAPER|reaper.fm;Ableton Live|ableton.com;FL Studio|image-line.com;Ardour|ardour.org;LMMS|lmms.io;Ocenaudio|ocenaudio.com;Logic Pro|apple.com/logic-pro|m;Cakewalk by BandLab|bandlab.com/products/cakewalk|w;Studio One|presonus.com;Reason|reasonstudios.com;Bitwig Studio|bitwig.com;Cubase|steinberg.net/cubase;Pro Tools|avid.com/pro-tools;Tracktion Waveform|tracktion.com;GarageBand|apple.com/mac/garageband|m",
+"Video Editing":"DaVinci Resolve|blackmagicdesign.com/products/davinciresolve;Shotcut|shotcut.org;Kdenlive|kdenlive.org;OpenShot|openshot.org;Adobe Premiere Pro|adobe.com/products/premiere.html;HandBrake|handbrake.fr;CapCut|capcut.com;Final Cut Pro|apple.com/final-cut-pro|m;Lightworks|lwks.com;VSDC Video Editor|videosoftdev.com|w;Olive|olivevideoeditor.org;iMovie|apple.com/imovie|m;Filmora|filmora.wondershare.com;Vegas Pro|vegascreativesoftware.com|w;Adobe After Effects|adobe.com/products/aftereffects.html;Avidemux|avidemux.org",
+"Torrent & Downloaders":"qBittorrent|qbittorrent.org;Transmission|transmissionbt.com;Deluge|deluge-torrent.org;Free Download Manager|freedownloadmanager.org;JDownloader|jdownloader.org;Internet Download Manager|internetdownloadmanager.com|w;Motrix|motrix.app;aria2|aria2.github.io;Vuze|vuze.com;BiglyBT|biglybt.com;uTorrent|utorrent.com;BitTorrent|bittorrent.com;Tixati|tixati.com;WebTorrent Desktop|webtorrent.io/desktop;Xtreme Download Manager|xtremedownloadmanager.com;Folx|mac.eltima.com/download-manager.html|m",
+"Password Managers":"Bitwarden|bitwarden.com;KeePassXC|keepassxc.org;1Password|1password.com;Proton Pass|proton.me/pass;Dashlane|dashlane.com;NordPass|nordpass.com;Enpass|enpass.io;Keeper|keepersecurity.com;RoboForm|roboform.com;Passbolt|passbolt.com;Psono|psono.com;Buttercup|buttercup.pw;Zoho Vault|zoho.com/vault;Password Safe|pwsafe.org|w;Strongbox|strongboxsafe.com|m;Sticky Password|stickypassword.com",
+"Screen Recording":"OBS Studio|obsproject.com;ShareX|getsharex.com|w;Camtasia|techsmith.com/camtasia;Bandicam|bandicam.com|w;ScreenToGif|screentogif.com|w;Snagit|techsmith.com/snagit;Greenshot|getgreenshot.org|w;Kap|getkap.co|m;Loom|loom.com;ScreenFlow|telestream.net/screenflow|m;Action!|mirillis.com/action|w;Icecream Screen Recorder|icecreamapps.com/Screen-Recorder|w;FlashBack Express|flashbackrecorder.com|w;Lightshot|app.prntscr.com;Screen Studio|screen.studio|m;CleanShot X|cleanshot.com|m",
+"Text Editors & IDEs":"Visual Studio Code|code.visualstudio.com;Notepad++|notepad-plus-plus.org|w;Sublime Text|sublimetext.com;Vim|vim.org;Neovim|neovim.io;Zed|zed.dev;IntelliJ IDEA|jetbrains.com/idea;PyCharm|jetbrains.com/pycharm;Kate|kate-editor.org;Geany|geany.org;Brackets|brackets.io;Nova|nova.app|m;BBEdit|barebones.com/products/bbedit|m;CotEditor|coteditor.com|m;Helix|helix-editor.com;Cursor|cursor.com",
+"Note Taking & Wiki":"Obsidian|obsidian.md;Notion|notion.so;Joplin|joplinapp.org;Logseq|logseq.com;Evernote|evernote.com;Standard Notes|standardnotes.com;Anytype|anytype.io;Bear|bear.app|m;OneNote|onenote.com;Simplenote|simplenote.com;Google Keep|keep.google.com;Roam Research|roamresearch.com;Craft|craft.do;SiYuan|b3log.org/siyuan;Notesnook|notesnook.com;Capacities|capacities.io",
+"Remote Desktop":"AnyDesk|anydesk.com;TeamViewer|teamviewer.com;RustDesk|rustdesk.com;Parsec|parsec.app;Splashtop|splashtop.com;RealVNC|realvnc.com;NoMachine|nomachine.com;Moonlight|moonlight-stream.org;Chrome Remote Desktop|remotedesktop.google.com;TightVNC|tightvnc.com|w;Jump Desktop|jumpdesktop.com;ConnectWise ScreenConnect|screenconnect.com;Royal TS|royalapps.com;Remmina|remmina.org;Apache Guacamole|guacamole.apache.org;UltraVNC|uvnc.com|w",
+"Developer Tools":"Python|python.org;Go|go.dev;Rust|rust-lang.org;Visual Studio|visualstudio.microsoft.com|w;Android Studio|developer.android.com/studio;Xcode|developer.apple.com/xcode|m;Eclipse|eclipse.org;CMake|cmake.org;Flutter|flutter.dev;OpenJDK|openjdk.org;.NET|dotnet.microsoft.com;Homebrew|brew.sh|m;Chocolatey|chocolatey.org|w;Scoop|scoop.sh|w;JetBrains Rider|jetbrains.com/rider;Swift|swift.org",
+"Git & Version Control":"Git|git-scm.com;GitHub Desktop|desktop.github.com;GitKraken|gitkraken.com;Sourcetree|sourcetreeapp.com;Fork|git-fork.com;TortoiseGit|tortoisegit.org|w;Tower|git-tower.com;Sublime Merge|sublimemerge.com;Gitea|about.gitea.com;GitLab|gitlab.com;Bitbucket|bitbucket.org;Git Extensions|gitextensions.github.io|w;SmartGit|syntevo.com/smartgit;GitUp|gitup.co|m;Mercurial|mercurial-scm.org;TortoiseSVN|tortoisesvn.net|w",
+"Docker & Containers":"Docker Desktop|docker.com/products/docker-desktop;Podman Desktop|podman-desktop.io;Rancher Desktop|rancherdesktop.io;Portainer|portainer.io;Lens|k8slens.dev;Minikube|minikube.sigs.k8s.io;K9s|k9scli.io;OrbStack|orbstack.dev|m;Kubernetes|kubernetes.io;Helm|helm.sh;Podman|podman.io;Rancher|rancher.com;Kind|kind.sigs.k8s.io;Harbor|goharbor.io;Argo CD|argo-cd.readthedocs.io;Lima|lima-vm.io",
+"Database Tools":"DBeaver|dbeaver.io;DataGrip|jetbrains.com/datagrip;HeidiSQL|heidisql.com|w;TablePlus|tableplus.com;pgAdmin|pgadmin.org;DB Browser for SQLite|sqlitebrowser.org;MongoDB Compass|mongodb.com/products/tools/compass;Beekeeper Studio|beekeeperstudio.io;Navicat|navicat.com;SQL Server Management Studio|learn.microsoft.com/sql/ssms|w;Studio 3T|studio3t.com;Redis Insight|redis.io/insight;Adminer|adminer.org;phpMyAdmin|phpmyadmin.net;SQLiteStudio|sqlitestudio.pl;Sequel Ace|sequel-ace.com|m",
+"API & Testing":"Postman|postman.com;Insomnia|insomnia.rest;Bruno|usebruno.com;Hoppscotch|hoppscotch.io;SoapUI|soapui.org;HTTPie|httpie.io;Fiddler|telerik.com/fiddler;Charles Proxy|charlesproxy.com;Swagger UI|swagger.io;Stoplight|stoplight.io;Apidog|apidog.com;Apache JMeter|jmeter.apache.org;k6|k6.io;Mockoon|mockoon.com;Proxyman|proxyman.io|m;mitmproxy|mitmproxy.org",
+"Virtualization":"VirtualBox|virtualbox.org;VMware Workstation|vmware.com/products/workstation-pro.html|w;VMware Fusion|vmware.com/products/fusion.html|m;Parallels Desktop|parallels.com|m;QEMU|qemu.org;UTM|mac.getutm.app|m;Vagrant|vagrantup.com;Multipass|multipass.run;Proxmox VE|proxmox.com;Genymotion|genymotion.com;BlueStacks|bluestacks.com;LDPlayer|ldplayer.net|w;CrossOver|codeweavers.com|m;Wine|winehq.org;Virt-Manager|virt-manager.org;GNOME Boxes|apps.gnome.org/Boxes",
+"Network Tools":"Wireshark|wireshark.org;Nmap|nmap.org;Advanced IP Scanner|advanced-ip-scanner.com|w;Angry IP Scanner|angryip.org;NetLimiter|netlimiter.com|w;Fing|fing.com;Tailscale|tailscale.com;ZeroTier|zerotier.com;Burp Suite|portswigger.net/burp;OpenVPN|openvpn.net;WireGuard|wireguard.com;Proton VPN|protonvpn.com;NetSpot|netspotapp.com;Acrylic Wi-Fi|acrylicwifi.com|w;SoftPerfect Network Scanner|softperfect.com|w;Little Snitch|obdev.at/products/littlesnitch|m",
+"Hardware Benchmarks":"CPU-Z|cpuid.
